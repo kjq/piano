@@ -43,7 +43,7 @@ Run MongoDB (Windows ONLY - do in a seperate DOS window from 'serve')
 Run Webserver
 -------------------------
 bin/serve
-	Runs server on 8000
+	Runs server on 8080
 
 bin/pserve development.ini
 	Runs server on 8080
