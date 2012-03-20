@@ -2,14 +2,12 @@
 
 REM Command file for Sphinx documentation
 
-set SPHINXBUILD=..\bin\sphinx-build.exe
-
 if "%SPHINXBUILD%" == "" (
-	set SPHINXBUILD=..\bin\sphinx-build.exe
+	set SPHINXBUILD=sphinx-build
 )
-set BUILDDIR=_build
-set ALLSPHINXOPTS=-d %BUILDDIR%/doctrees %SPHINXOPTS% .
-set I18NSPHINXOPTS=%SPHINXOPTS% .
+set BUILDDIR=C:\home\work\piano\docs\_build
+set ALLSPHINXOPTS=-d %BUILDDIR%/doctrees %SPHINXOPTS% c:\home\work\piano\docs
+set I18NSPHINXOPTS=%SPHINXOPTS% c:\home\work\piano\docs
 if NOT "%PAPER%" == "" (
 	set ALLSPHINXOPTS=-D latex_paper_size=%PAPER% %ALLSPHINXOPTS%
 	set I18NSPHINXOPTS=-D latex_paper_size=%PAPER% %I18NSPHINXOPTS%
@@ -101,9 +99,9 @@ if "%1" == "qthelp" (
 	echo.
 	echo.Build finished; now you can run "qcollectiongenerator" with the ^
 .qhcp project file in %BUILDDIR%/qthelp, like this:
-	echo.^> qcollectiongenerator %BUILDDIR%\qthelp\NGDS.qhcp
+	echo.^> qcollectiongenerator %BUILDDIR%\qthelp\sphinx.qhcp
 	echo.To view the help file:
-	echo.^> assistant -collectionFile %BUILDDIR%\qthelp\NGDS.ghc
+	echo.^> assistant -collectionFile %BUILDDIR%\qthelp\sphinx.ghc
 	goto end
 )
 

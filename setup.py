@@ -38,7 +38,7 @@ setup(name='piano',
       zip_safe=False,
       install_requires=requires,
       tests_require=requires,
-      test_suite="ngds",
+      test_suite="piano",
       entry_points = """\
       [paste.app_factory]
       main = piano:main

@@ -1,6 +1,6 @@
 """
 :mod:`piano.libs.mongo`
-----------------------
+-----------------------
 
 .. autofunction:: setup_db
 

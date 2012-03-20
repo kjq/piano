@@ -1,6 +1,6 @@
 """
 :mod:`piano.libs.crumb`
-----------------------
+-----------------------
 
 .. autoclass:: Breadcrumb
    :members:

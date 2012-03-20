@@ -1,7 +1,7 @@
 """Application constants.
 
 :mod:`piano.constants`
----------------------
+----------------------
 .. autodata:: piano.constants.SRVC_NAME
 .. autodata:: piano.constants.MAIN_TEMPLATE
 .. autodata:: piano.constants.MONGO_URL

@@ -1,6 +1,6 @@
 """
 :mod:`sample.home.views`
-----------------------
+------------------------
 
 .. autofunction:: say_hello
 

@@ -1,2 +1,4 @@
 include *.txt *.ini *.cfg *.rst
-recursive-include web *.ico *.png *.css *.gif *.jpg *.pt *.txt *.mak *.mako *.js *.html *.xml
+recursive-include src/piano/static *
+recursive-include src/piano/web *
+recursive-include src/sample *

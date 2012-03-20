@@ -1,6 +1,6 @@
 """
 :mod:`piano.libs.base`
----------------------
+----------------------
 
 .. autoclass:: ContextBase
    :members:

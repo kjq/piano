@@ -1,6 +1,6 @@
 """
 :mod:`piano.libs.rest`
----------------------
+----------------------
 
 .. autofunction:: invoke
 

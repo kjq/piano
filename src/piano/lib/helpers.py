@@ -1,6 +1,6 @@
 """
 :mod:`piano.libs.helpers`
-------------------------
+-------------------------
 
 .. autofunction:: now
 

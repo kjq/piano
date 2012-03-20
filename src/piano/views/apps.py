@@ -13,7 +13,7 @@ from pyramid.view import view_config
 def dashboard(context, request):
     """Renders a list of sites available to this application.
     """
-    page_title = "NGDS"
+    page_title = "Dashboard"
     new_site_url = request.resource_url(context, 'new-site')
     # Find list of sites
     site_list = context.available()
