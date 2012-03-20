@@ -1,0 +1,10 @@
+[nosetests]
+where=src/piano/tests
+include=^test
+match=^unit
+verbosity=2
+logging-filter=piano
+nocapture=1
+#cover-package = myproject
+#with-coverage = 1
+#cover-erase = 1

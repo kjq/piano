@@ -1,0 +1,7 @@
+[nosetests]
+where=src/piano/tests
+include=^test
+match=^int
+nocapture=1
+verbosity=2
+logging-filter=piano

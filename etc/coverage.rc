@@ -1,0 +1,10 @@
+# .coveragerc to control coverage.py
+[run]
+branch = True
+source=logd
+data_file = .coverage
+include=/logd/**/src/logd/**/*.py
+omit=/logd/**/tests/**/*.py,/logd/**/eggs/**,/logd/**/data/**
+
+[xml]
+output = logs/coverage.xml

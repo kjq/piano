@@ -1,0 +1,4 @@
+Constants
+--------------------------------
+
+.. automodule:: piano.constants

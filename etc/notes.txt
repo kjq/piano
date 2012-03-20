@@ -1,0 +1,2 @@
+Super-Private (mangled) : __XXX	(double underscore)
+Semi-Private			: _XXX 	(single underscore)

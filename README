@@ -1,1 +1,37 @@
-Readme
+Setup
+---------------------
+1) Uninstall Python 			--> They are probably hosed anyhow
+2) Install Python 2.7.2 x32 	--> x64 has issues with various libs like PIL
+3) Set PYTHONHOME 				--> Where you installed Python
+4) Checkout code someplace 		--> I used /work/ngds
+
+
+Installation
+---------------------
+1) Go into the directory 		--> should see bootstrap.py - if not, wget http://svn.zope.org/*checkout*/zc.buildout/trunk/bootstrap/bootstrap.py
+2) python bootstrap.py			--> Press <ENTER> after a generating buildout script, don't know why this hangs but been like that forever on Windows.
+3) bin/buildout  				--> initial/whenever there are setup/egg changes
+
+
+General commands
+---------------------
+bin/python						--> Runs python with project environment setup
+bin/test 						--> Runs test cases 
+bin/buildout install pydev 		--> Configures PyDev project for Eclipse (close/open project in Eclipse afterwards)
+
+
+Setup MongoDB (Windows ONLY/only needed initially)
+-------------------------
+bin/buildout install mongodb-winXX (64 or 32)
+
+
+Run MongoDB (Windows ONLY - do in a seperate DOS window from 'serve')
+-------------------------
+	Start:  bin\buildout install mongod-win
+	Stop:   <ctrl-c> a couple of times
+
+
+Run Webserver
+-------------------------
+bin/serve 						--> Runs server on 8000
+bin/pserve development.ini		--> Runs server on 8080

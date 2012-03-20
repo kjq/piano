@@ -1,0 +1,10 @@
+.git
+.svn
+.installed.cfg
+.project
+.pydevproject
+.coverage
+*.bak
+etc/*
+data/*
+logs/*
