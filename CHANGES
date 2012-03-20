@@ -2,3 +2,14 @@
 ---
 
 -  Initial version
+-  Initial prototype
+-  Initial MongoDB structure
+-  Buildout setup
+-  Rough documentation
+-  Creation of 'sample' site
+
+0.1
+---
+
+- Imported into GitHub
+- Uploaded into PyPi

@@ -19,18 +19,18 @@ requires = [
     ]
 
 setup(name='piano',
-      version='0.0',
+      version='0.1',
       description='CMS built using Pyramid and MongoDB',
       long_description=README + '\n\n' +  CHANGES,
       classifiers=[
         "Programming Language :: Python",
-        "Framework :: Pylons",
+        "Framework :: Pyramid",
         "Topic :: Internet :: WWW/HTTP",
         "Topic :: Internet :: WWW/HTTP :: WSGI :: Application",
         ],
       author='KimJohn Quinn',
       author_email='kjq@logicdrop.com',
-      url='www.logicdrop.com',
+      url='https://github.com/kjq/piano',
       keywords='pyramid mongodb beaker buildout cms',
       packages=find_packages('src'),
       package_dir={'': 'src'},
