@@ -8,7 +8,7 @@ CHANGES = open(os.path.join(here, 'CHANGES')).read()
 
 requires = [
     'docutils',
-    'mongokit',        #Fork of MongoKit by same author is MongoLite
+    'mongokit', #Fork of MongoKit by same author is MongoLite
     'pymongo',
     'pyramid',
     'pyramid_beaker',
@@ -21,12 +21,20 @@ requires = [
 setup(name='piano',
       version='0.1',
       description='CMS built using Pyramid and MongoDB',
-      long_description=README + '\n\n' +  CHANGES,
+      long_description=README + '\n\n' + CHANGES,
       classifiers=[
-        "Programming Language :: Python",
+        "Development Status:: 3 - Alpha",
+        "Environment :: Web Environment",
         "Framework :: Pylons",
+        "Framework :: Buildout",
+        "Intended Audience :: Developers",
+        "Intended Audience :: End Users/Desktop",
+        "Operating System :: MacOS :: MacOS X",
+        "Operating System :: Microsoft :: Windows",
+        "Programming Language :: Python 2.7",
         "Topic :: Internet :: WWW/HTTP",
         "Topic :: Internet :: WWW/HTTP :: WSGI :: Application",
+        "Topic :: Office/Business",
         ],
       author='KimJohn Quinn',
       author_email='kjq@logicdrop.com',
@@ -39,7 +47,7 @@ setup(name='piano',
       install_requires=requires,
       tests_require=requires,
       test_suite="piano",
-      entry_points = """\
+      entry_points="""\
       [paste.app_factory]
       main = piano:main
       """,

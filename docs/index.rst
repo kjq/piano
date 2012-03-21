@@ -41,7 +41,9 @@ Resources
 Useful or interesting links and references.
 
 * `reStructuredText Cheatsheet <http://openalea.gforge.inria.fr/doc/openalea/doc/_build/html/source/sphinx/rest_syntax.html>`_
-	
+
+* `Hitchhiker's Guide to Packaging <http://guide.python-distribute.org/creation.html>`_
+
 .. toctree::
    :maxdepth: 2
 
