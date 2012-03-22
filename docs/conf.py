@@ -16,32 +16,6 @@ import sys, os
 # If extensions (or modules to document with autodoc) are in another directory,
 # add these directories to sys.path here. If the directory is relative to the
 # documentation root, use os.path.abspath to make it absolute, like shown here.
-sys.path[0:0] = [
-    'c:\\home\\work\\piano\\eggs\\pyramid-1.3b2-py2.7.egg',
-    'c:\\home\\work\\piano\\src',
-    'c:\\home\\work\\piano\\eggs\\webhelpers-1.3-py2.7.egg',
-    'c:\\home\\work\\piano\\eggs\\waitress-0.8.1-py2.7.egg',
-    'c:\\home\\work\\piano\\eggs\\simplejson-2.4.0-py2.7.egg',
-    'c:\\home\\work\\piano\\eggs\\pyramid_debugtoolbar-0.9.9.1-py2.7.egg',
-    'c:\\home\\work\\piano\\eggs\\pyramid_beaker-0.6.1-py2.7.egg',
-    'c:\\home\\work\\piano\\eggs\\pymongo-2.1.1-py2.7-win32.egg',
-    'c:\\home\\work\\piano\\eggs\\mongokit-0.7.2-py2.7.egg',
-    'c:\\home\\work\\piano\\eggs\\docutils-0.8.1-py2.7.egg',
-    'c:\\home\\work\\piano\\eggs\\pastedeploy-1.5.0-py2.7.egg',
-    'c:\\home\\work\\piano\\eggs\\setuptools-0.6c11-py2.7.egg',
-    'c:\\home\\work\\piano\\eggs\\translationstring-1.1-py2.7.egg',
-    'c:\\home\\work\\piano\\eggs\\venusian-1.0a3-py2.7.egg',
-    'c:\\home\\work\\piano\\eggs\\zope.deprecation-3.5.0-py2.7.egg',
-    'c:\\home\\work\\piano\\eggs\\zope.interface-3.8.0-py2.7-win32.egg',
-    'c:\\home\\work\\piano\\eggs\\repoze.lru-0.4-py2.7.egg',
-    'c:\\home\\work\\piano\\eggs\\webob-1.2b3-py2.7.egg',
-    'c:\\home\\work\\piano\\eggs\\mako-0.6.2-py2.7.egg',
-    'c:\\home\\work\\piano\\eggs\\chameleon-2.8.0-py2.7.egg',
-    'c:\\home\\work\\piano\\eggs\\markupsafe-0.15-py2.7.egg',
-    'c:\\home\\work\\piano\\eggs\\pygments-1.4-py2.7.egg',
-    'c:\\home\\work\\piano\\eggs\\beaker-1.6.3-py2.7.egg',
-    'c:\\home\\work\\piano\\eggs\\anyjson-0.3.1-py2.7.egg',
-    ]
 
 # -- General configuration -----------------------------------------------------
 

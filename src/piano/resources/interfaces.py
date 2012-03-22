@@ -1,6 +1,6 @@
 """
 :mod:`piano.resources.interfaces`
---------------------------------
+---------------------------------
 
 .. autoclass:: IApp
 

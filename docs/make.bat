@@ -5,9 +5,9 @@ REM Command file for Sphinx documentation
 if "%SPHINXBUILD%" == "" (
 	set SPHINXBUILD=sphinx-build
 )
-set BUILDDIR=C:\home\work\piano\docs\_build
-set ALLSPHINXOPTS=-d %BUILDDIR%/doctrees %SPHINXOPTS% c:\home\work\piano\docs
-set I18NSPHINXOPTS=%SPHINXOPTS% c:\home\work\piano\docs
+set BUILDDIR=C:\home\work\piano\docs
+set ALLSPHINXOPTS=-d %BUILDDIR%/doctrees %SPHINXOPTS% C:\home\work\piano\docs\source
+set I18NSPHINXOPTS=%SPHINXOPTS% C:\home\work\piano\docs\source
 if NOT "%PAPER%" == "" (
 	set ALLSPHINXOPTS=-D latex_paper_size=%PAPER% %ALLSPHINXOPTS%
 	set I18NSPHINXOPTS=-D latex_paper_size=%PAPER% %I18NSPHINXOPTS%

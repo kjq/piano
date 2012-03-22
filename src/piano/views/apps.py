@@ -1,7 +1,7 @@
 """General Views
 
 :mod:`piano.views.apps`
-----------------------
+-----------------------
 
 .. autofunction:: dashboard
 

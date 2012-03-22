@@ -1,6 +1,6 @@
 """
 :mod:`piano.services.menu`
--------------------------
+--------------------------
 
 .. autoclass:: MenuService
    :members:

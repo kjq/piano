@@ -5,6 +5,9 @@
 
 """
 from sample.home import models as m
+import logging
+
+logger = logging.getLogger(__name__)
 
 # Manually register documents    
 try:
@@ -12,3 +15,5 @@ try:
     conn.register([m.HomeData])
 except:
     pass
+else:
+    logger.info('Registered Home models')

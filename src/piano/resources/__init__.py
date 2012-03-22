@@ -1,7 +1,7 @@
 """Application resources, documents, and models.
 
 :mod:`piano.resources`
----------------------
+----------------------
 
 .. autofunction:: create_root
 

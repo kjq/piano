@@ -1,6 +1,6 @@
 """
-:mod:`piano.views.site`
----------------------
+:mod:`piano.views.sites`
+------------------------
 
 .. autofunction:: piano.views.sites.view_site
 

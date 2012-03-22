@@ -1,6 +1,6 @@
 """
 :mod:`piano.resources.documents`
--------------------------------
+--------------------------------
 
 .. autoclass:: SiteDocument
    :members:

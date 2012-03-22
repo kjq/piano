@@ -39,3 +39,10 @@ Install MongoDB on Windows
 1. ``bin/buildout install mongodb-winXX`` (64 or 32)
 
 .. note:: You only need to do this when you first setup your environment.
+
+
+Generating Sphinx Documentation
+###############################
+1. ``bin/buildout install sphinx``
+
+2. ``bin/sphinx-build docs docs/_build``
