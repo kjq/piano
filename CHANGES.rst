@@ -20,3 +20,9 @@ Changelog
 - Cleaned up contexts
 - Added dynamic embedding of a PageModel into a PageDocument (page data)
 - Fixed Sphinx doco generation
+
+
+0.3
+---
+- Cleaning up documentation
+- General code cleanup

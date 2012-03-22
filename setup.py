@@ -19,7 +19,7 @@ requires = [
     ]
 
 setup(name='piano',
-      version='0.2',
+      version='0.3',
       description='CMS built using Pyramid and MongoDB',
       long_description=README + '\n\n' + CHANGES,
       classifiers=[
