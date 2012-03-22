@@ -36,7 +36,7 @@ Generating Documentation
 
 2. ``bin/sphinx-build docs docs/_build``
 
-3. Navigate to docs/_build.html/index.html to read the docs.
+3. Navigate to docs/_build.html/index.html to read.
 
 
 
