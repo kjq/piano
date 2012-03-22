@@ -39,7 +39,11 @@ class SiteDocument(b.DocumentBase):
         'created': h.now()
     }
 
-
+class PageData(b.DocumentBase):
+    """Document for page-level data.
+    """
+    structure = {}
+    
 class PageDocument(b.DocumentBase):
     """"Document representation of a page.
     """
@@ -52,6 +56,7 @@ class PageDocument(b.DocumentBase):
         'views': int,
         'source': str,
         'parent': str,
+        'data': PageData,
     }
     required_fields = [
         'title',
@@ -67,8 +72,9 @@ class PageDocument(b.DocumentBase):
         'source': 'sample.home',
         'created': h.now()
     }
-
-
+    #Use autorefs for embedded data docs
+    use_auto_refs = True
+    
 # Manually register documents    
 try:
     from piano.lib.mongo import conn

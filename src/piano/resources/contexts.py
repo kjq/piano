@@ -120,6 +120,7 @@ class Page(b.ContextBase):
             parent=parent,
             id=data['_id'],
             title=data['title'],
+            data=data['data'],
             slug=data['slug'],
             origin=data['parent'],
             views=data['views'],
@@ -134,6 +135,18 @@ class Page(b.ContextBase):
         data['slug'] = self.slug
         data['parent'] = str(self.__parent__.__name__)
         data['source'] = str(self.source)
+        #Try to import custom models and get doc
+        try:
+            mod = __import__('.'.join([self.source, 'models']), fromlist=[self.source])
+            doc = getattr(mod, 'PageModel', None)
+        except ImportError:
+            logger.error('Cannot import model')
+        else:
+            #Add new document
+            if doc is not None:
+                data['data'] = doc()
+            else:
+                logger.warn('This page does not have a model')
         data.save()
         return self
 

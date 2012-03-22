@@ -4,6 +4,13 @@
 <p>This is my home body</p>
 ------------------------------------------
 
+<p>From my model:</p>
+<ul>
+	<li>intro_message = ${page_data['intro_message']}</li>
+	<li>intro_image = ${page_data['intro_image']}</li>
+</ul>
+------------------------------------------
+
 <p>Code says "${vw.say_hello('world')}"</p>
 ------------------------------------------
 
