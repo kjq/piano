@@ -1,49 +1,47 @@
-Setup
----------------------
-1) Uninstall Python 			
-2) Install Python 2.7.2 x32 	
-3) Set PYTHONHOME 
-4) Checkout code someplace 
+===========
+Piano
+===========
+
+Piano is an work-in-progress for building dynamic CMS-like sites 
+consisting of componentized parts (such as pages or widgets) which can be 
+assembled and configured at runtime.
+
+It also is an evolving example demonstrating:
+
+* Pyramid
+* Traversal
+* Buildout
+* MongoDB and MongoKit
+* Sphinx documentation
 
 
-Installation
----------------------
-1) Go into the directory
-	should see bootstrap.py - if not, wget http://svn.zope.org/*checkout*/zc.buildout/trunk/bootstrap/bootstrap.py
+Installation Instructions
+=========================
 
-2) python bootstrap.py
-	Press <ENTER> after a generating buildout script, don't know why this hangs but been like that forever on Windows.
+Buildout Setup
+---------------------------
+1. Install Python 2.7.2 x32
 
-3) bin/buildout  				
+2. ``python bootstrap.py``
 
+	.. warning:: Press <ENTER> after a seeing the buildout script is generated (don't know 
+		why this hangs but been like that forever on Windows).
 
-General commands
----------------------
-bin/python
-	Runs python with project environment setup
-
-bin/test
-	Runs test cases 
-
-bin/buildout install pydev
-	Configures PyDev project for Eclipse (close/open project in Eclipse afterwards)
+3. ``bin/buildout``
 
 
-Setup MongoDB (Windows ONLY/only needed initially)
--------------------------
-bin/buildout install mongodb-winXX (64 or 32)
+Generating Documentation
+-------------------------------
+1. ``bin/buildout install sphinx``
+
+2. ``bin/sphinx-build docs docs/_build``
+
+3. Navigate to docs/_build.html/index.html to read the docs.
 
 
-Run MongoDB (Windows ONLY - do in a seperate DOS window from 'serve')
--------------------------
-	Start:  bin\buildout install mongod-win
-	Stop:   <ctrl-c> a couple of times
 
+For more detailed information: 
+==============================
+*Documentation on PyPi: http://packages.python.org/​piano
 
-Run Webserver
--------------------------
-bin/serve
-	Runs server on 8080
-
-bin/pserve development.ini
-	Runs server on 8080
+*Source on GitHub: https://github.com/kjq/piano
