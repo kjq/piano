@@ -115,7 +115,7 @@ class Page(b.ContextBase):
             return parent.get_conn(app=a, site=s).one({'parent': p, 'slug':k})
         #Find the page
         data = _find_page(key, parent.__name__, parent.sitename, parent.appname)
-        return Page(
+        return cls(
             key=key,
             parent=parent,
             id=data['_id'],
@@ -157,7 +157,7 @@ class Site(Page):
             return parent.get_conn(app=a).SiteDocument.one({'slug':k})
         #Find the site
         data = _find_site(key, parent.__name__)
-        return Site(
+        return cls(
             key=key,
             parent=parent,
             id=data['_id'],
