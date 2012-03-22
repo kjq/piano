@@ -26,4 +26,4 @@ Quick Installation
 
 4. ``bin/sphinx-build docs docs/_build``
 
-Go to docs/_build/html for detailed documentation.
+For detailed documentation start at /docs/_build/html/index.html.
