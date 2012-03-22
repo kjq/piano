@@ -42,6 +42,6 @@ Generating Documentation
 
 For more detailed information: 
 ==============================
-*Documentation on PyPi: http://packages.python.org/​piano
+*Documentation on PyPi: http://packages.python.org/​piano/
 
-*Source on GitHub: https://github.com/kjq/piano
+*Source on GitHub: https://github.com/kjq/piano/
