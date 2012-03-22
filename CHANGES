@@ -2,19 +2,18 @@
 ---
 
 -  Initial version
--  Initial prototype
--  Initial MongoDB structure
--  Buildout setup
--  Rough documentation
--  Creation of 'sample' site
+-  Created initial MongoDB structure
+-  Created Buildout setup and configurations
+-  Wrote initial documentation
 
 0.1
 ---
 
-- Imported into GitHub
-- Uploaded into PyPi
+- Moved to GitHub
+- First upload to PyPi
 
 0.2
 ---
 
-- Added dynamic page models
+- Cleaned up contexts
+- Added dynamic embedding of a PageModel into a PageDocument (page data)
