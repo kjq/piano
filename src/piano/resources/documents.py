@@ -40,7 +40,8 @@ class SiteDocument(b.DocumentBase):
     }
 
 class PageData(b.DocumentBase):
-    """Document for page-level data.
+    """Document for page-level data.  Page-level components need to have a
+    module 'models' and a class 'PageModel' which extends this class.
     """
     structure = {}
     
