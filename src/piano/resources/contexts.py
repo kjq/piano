@@ -138,15 +138,14 @@ class Page(b.ContextBase):
         #Try to import custom models and get doc
         try:
             mod = __import__('.'.join([self.source, 'models']), fromlist=[self.source])
-            doc = getattr(mod, 'PageModel', None)
+            doc = getattr(mod, 'PageModel')
         except ImportError:
-            logger.error('Cannot import model')
+            logger.warn("Cannot import '%s.models' module" % self.source)
+        except AttributeError:
+            logger.warn("Cannot load '%s.models.PageModel' class" % self.source)
         else:
             #Add new document
-            if doc is not None:
-                data['data'] = doc()
-            else:
-                logger.warn('This page does not have a model')
+            data['data'] = doc()
         data.save()
         return self
 
