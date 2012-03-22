@@ -18,19 +18,14 @@ It also is an evolving example demonstrating:
 Installation
 =========================
 
-Buildout Setup
----------------------------
 1. Install Python 2.7.2 x32
 
 2. ``python bootstrap.py``
 
 3. ``bin/buildout``
 
+4. ``bin/buildout install sphinx``
 
-Generating Documentation
--------------------------------
-1. ``bin/buildout install sphinx``
+5. ``bin/sphinx-build docs docs/_build``
 
-2. ``bin/sphinx-build docs docs/_build``
-
-3. Navigate to docs/_build.html/index.html to read.
+Navigate to docs/_build.html/index.html to read.
