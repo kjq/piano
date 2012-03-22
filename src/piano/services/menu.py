@@ -48,11 +48,11 @@ class MenuService(object):
             - Returns all children for my-site/home
         """
         try:
-            return self.__children(self.parent, self.site, self.app)
+            return self._children(self.parent, self.site, self.app)
         except:
             return HTTPInternalServerError("Request did not execute properly.")
     
-    def __children(self, parent, site, app):
+    def _children(self, parent, site, app):
         coll = self.conn[app][site]
         #Find children of parent then all child in that list
         children = coll.find({'parent': parent}, {'slug':1, 'title':1})

@@ -73,15 +73,15 @@ class App(b.ContextBase):
         except:
             raise KeyError(key)
 
-    def available(self):
+    def list_sites(self):
         """Returns a list of sites under the application.
         """
         @cache_region('hourly', 'site.list')
-        def available_sites(a):
-            data = self.conn[a].SiteDocument.find({}, {'title':1, 'slug':1})
+        def _list_sites(a):
+            data = self.get_conn(a).SiteDocument.find({}, {'title':1, 'slug':1})
             return list(SiteItem(s['title'], '/'.join([a, s['slug']])) for s in data)
         #Get the list of available sites
-        site_list = available_sites(self.appname)
+        site_list = _list_sites(self.appname)
         return site_list
 
 
@@ -111,10 +111,10 @@ class Page(b.ContextBase):
         """Finds a single page by its parent and slug.
         """
         @cache_region('hourly', 'page.find')
-        def find_page(k, p, s, a):
-            return parent.conn[a][s].one({'parent': p, 'slug':k})
+        def _find_page(k, p, s, a):
+            return parent.get_conn(app=a, site=s).one({'parent': p, 'slug':k})
         #Find the page
-        data = find_page(key, parent.__name__, parent.sitename, parent.appname)
+        data = _find_page(key, parent.__name__, parent.sitename, parent.appname)
         return Page(
             key=key,
             parent=parent,
@@ -129,7 +129,7 @@ class Page(b.ContextBase):
     def save(self):
         """Creates a new page and associates it to a parent.
         """
-        data = self.conn[self.appname][self.sitename].PageDocument()
+        data = self.get_conn().PageDocument()
         data['title'] = self.title
         data['slug'] = self.slug
         data['parent'] = str(self.__parent__.__name__)
@@ -153,10 +153,10 @@ class Site(Page):
         """Returns a single site by its slug.
         """
         @cache_region('hourly', 'site.find')
-        def find_site(k, a):
-            return parent.conn[a].SiteDocument.one({'slug':k})
+        def _find_site(k, a):
+            return parent.get_conn(app=a).SiteDocument.one({'slug':k})
         #Find the site
-        data = find_site(key, parent.__name__)
+        data = _find_site(key, parent.__name__)
         return Site(
             key=key,
             parent=parent,
@@ -170,7 +170,7 @@ class Site(Page):
         """Saves the primary site details and creates a new collection to house 
         the pages in.  It also creates a default (Home) page if needed.
         """
-        data = self.conn[self.appname].SiteDocument()
+        data = self.get_conn(app=self.appname).SiteDocument()
         data['title'] = self.title
         data['slug'] = self.slug
         data.save()
@@ -187,6 +187,6 @@ class Site(Page):
     def delete(self):
         """Deletes the site and its associated collection.
         """
-        db = self.conn[self.appname]
+        db = self.get_conn(app=self.appname)
         db.SiteDocument.get_from_id(self.id).delete()
         db.drop_collection(self.__name__)
