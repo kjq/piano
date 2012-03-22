@@ -145,7 +145,7 @@ class Page(b.ContextBase):
         except AttributeError:
             logger.warn("Cannot load '%s.models.PageModel' class" % self.source)
         else:
-            #Add new document
+            #Embed document
             data['data'] = doc()
         data.save()
         return self
