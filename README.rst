@@ -15,7 +15,7 @@ It also is an evolving example demonstrating:
 * Sphinx documentation
 
 
-Installation Instructions
+Installation
 =========================
 
 Buildout Setup
@@ -42,6 +42,6 @@ Generating Documentation
 
 For more detailed information: 
 ==============================
-* Documentation on PyPi: http://packages.python.org/​piano
+* `Documentation on PyPi <http://packages.python.org/​piano>`_
 
-* Source on GitHub: https://github.com/kjq/piano
+* `Source on GitHub <https://github.com/kjq/piano>`_
