@@ -34,6 +34,11 @@ Installation using Buildout
 	it again when dependencies change.
 
 
+Install MongoDB on Unix
+##########################
+1. ``bin/buildout install mongodb``
+
+
 Install MongoDB on Windows
 ##########################
 1. ``bin/buildout install mongodb-winXX`` (64 or 32)

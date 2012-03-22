@@ -20,7 +20,10 @@ In order to connect to the MongoDB you will have to start the server first.
 
 .. note:: Windows ONLY - do in a seperate DOS window from 'serve'
 
-* Start
+* Start on Unix
+	``bin/mongod.sh``
+
+* Start on Windows
 	``bin/buildout install mongod-win``
 
 * Stop
