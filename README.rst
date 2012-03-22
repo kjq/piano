@@ -15,17 +15,15 @@ It also is an evolving example demonstrating:
 * Sphinx documentation
 
 
-Installation
+Quick Installation
 =========================
 
-1. Install Python 2.7.2 x32
+1. ``python bootstrap.py``
 
-2. ``python bootstrap.py``
+2. ``bin/buildout``
 
-3. ``bin/buildout``
+3. ``bin/buildout install sphinx``
 
-4. ``bin/buildout install sphinx``
+4. ``bin/sphinx-build docs docs/_build``
 
-5. ``bin/sphinx-build docs docs/_build``
-
-Navigate to docs/_build.html/index.html to read.
+Go to docs/_build/html for detailed documentation.
