@@ -13,10 +13,7 @@ class PageModel(dict):
         self['page_id'] = context.id
         self['page_slug'] = context.slug
         self['page_title'] = context.title
-        try:
-            self['page_template'] = context.template
-        except AttributeError:
-            pass
+        self['page_template'] = getattr(context, 'template', None)
         #Site specifics
         site = context.__site__
         if site is not None:

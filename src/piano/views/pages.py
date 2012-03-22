@@ -23,7 +23,7 @@ def view_page(context, request):
     return render_to_response(
         context.template,
         mvc.PageModel(
-            context,
+            context, 
             save_page_url=save_page_url),
         request=request)
 
