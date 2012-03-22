@@ -3,9 +3,9 @@
 ------------------------------
 
 """
-from piano.resources import documents as d
+from piano.resources.documents import PageData
 
-class PageModel(d.PageData):
+class PageModel(PageData):
     structure = {
         'some_message':unicode,
         'some_image':str
