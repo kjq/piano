@@ -1,5 +1,5 @@
 ===========
-Piano
+Piano 0.3
 ===========
 
 Piano is an work-in-progress for building dynamic CMS-like sites 
