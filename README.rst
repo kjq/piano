@@ -6,7 +6,7 @@ Piano is an work-in-progress for building dynamic CMS-like sites
 consisting of componentized parts (such as pages or widgets) which can be 
 assembled and configured at runtime.
 
-It also is an evolving example demonstrating:
+It's also an evolving example demonstrating:
 
 * Pyramid
 * Traversal
