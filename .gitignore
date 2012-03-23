@@ -10,6 +10,7 @@
 .project
 .pydevproject
 bin
+build
 data
 develop-eggs
 dist
