@@ -115,6 +115,7 @@ class Page(b.ContextBase):
             return parent.get_conn(app=a, site=s).one({'parent': p, 'slug':k})
         #Find the page
         data = _find_page(key, parent.__name__, parent.sitename, parent.appname)
+        print data
         return cls(
             key=key,
             parent=parent,

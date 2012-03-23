@@ -3,10 +3,10 @@
 --------------------------------
 
 .. autoclass:: SiteDocument
+   :members:
    
 .. autoclass:: PageDocument
-
-.. autoclass:: PageData
+   :members:
    
 """
 from piano.lib import base as b
@@ -17,7 +17,7 @@ import logging
 logger = logging.getLogger(__name__)
 
 class SiteDocument(b.DocumentBase):
-    """Document representation of a site.
+    """"Document representation of a site.
     """
     __database__ = None
     __collection__ = 'sites'
@@ -46,7 +46,7 @@ class PageData(b.DocumentBase):
     structure = {}
     
 class PageDocument(b.DocumentBase):
-    """Document representation of a page.
+    """"Document representation of a page.
     """
     structure = {
         'title':unicode,
