@@ -26,11 +26,9 @@ class MapperTests(unittest.TestCase):
         self.assertEqual(True, True)
 
     def test_dict_to_clz_mapping(self):
-        dict_to_clz = m()
+        dict_to_clz = m(self.dummy_dict, self.dummy_class)
         #Process
         result = dict_to_clz \
-                    .source(self.dummy_dict) \
-                    .target(self.dummy_class) \
                     .field('dkey1', 'key1') \
                     .field('dkey2', 'key2') \
                     .field('key3') \
@@ -42,11 +40,9 @@ class MapperTests(unittest.TestCase):
         self.assertEqual('yui', self.dummy_class.key3)
 
     def test_clz_to_dict_mapping(self):
-        clz_to_dict = m()
+        clz_to_dict = m(self.dummy_class, self.dummy_dict)
         #Process
         result = clz_to_dict \
-                    .source(self.dummy_class) \
-                    .target(self.dummy_dict) \
                     .field('key1', 'dkey1') \
                     .field('key2', 'dkey2') \
                     .field('key3') \
