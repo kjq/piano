@@ -1,16 +1,58 @@
 import unittest
 
 from pyramid import testing
+from piano.lib.mapper import Mapper as m
+        
+class DummySource():
+    def __init__(self):
+        self.key1 = 'abc'
+        self.key2 = 'xyz'
+        self.key3 = 'qrs'
 
-class ViewTests(unittest.TestCase):
+class MapperTests(unittest.TestCase):
     def setUp(self):
         self.config = testing.setUp()
+        #Setup test instances
+        self.dummy_class = DummySource()
+        self.dummy_dict = dict(
+            dkey1='123',
+            dkey2=456,
+            key3='yui')
 
     def tearDown(self):
         testing.tearDown()
 
-    def test_my_view(self):
-        from sites.views import my_view
-        request = testing.DummyRequest()
-        info = my_view(request)
-        self.assertEqual(info['project'], 'sites')
+    def test_simple(self):
+        self.assertEqual(True, True)
+
+    def test_dict_to_clz_mapping(self):
+        dict_to_clz = m()
+        #Process
+        result = dict_to_clz \
+                    .source(self.dummy_dict) \
+                    .target(self.dummy_class) \
+                    .field('dkey1', 'key1') \
+                    .field('dkey2', 'key2') \
+                    .field('key3') \
+                    .build()
+        #Validate
+        self.assertIsInstance(result, DummySource)
+        self.assertEqual('123', self.dummy_class.key1)
+        self.assertEqual(456, self.dummy_class.key2)
+        self.assertEqual('yui', self.dummy_class.key3)
+
+    def test_clz_to_dict_mapping(self):
+        clz_to_dict = m()
+        #Process
+        result = clz_to_dict \
+                    .source(self.dummy_class) \
+                    .target(self.dummy_dict) \
+                    .field('key1', 'dkey1') \
+                    .field('key2', 'dkey2') \
+                    .field('key3') \
+                    .build()
+        #Validate
+        self.assertEqual('abc', self.dummy_dict['dkey1'])
+        self.assertEqual('xyz', self.dummy_dict['dkey2'])
+        self.assertEqual('qrs', self.dummy_dict['key3'])
+        
