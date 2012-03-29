@@ -76,7 +76,7 @@ class App(b.ContextBase):
     def list_sites(self):
         """Returns a list of sites under the application.
         """
-        @cache_region('hourly', 'site.list')
+        #@cache_region('hourly', 'site.list')
         def _list_sites(a):
             data = self.get_conn(a).SiteDocument.find({}, {'title':1, 'slug':1})
             return list(SiteItem(s['title'], '/'.join([a, s['slug']])) for s in data)
