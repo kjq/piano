@@ -26,3 +26,6 @@ Changelog
 ---
 - Cleaning up documentation
 - General code cleanup
+
+0.4
+---
