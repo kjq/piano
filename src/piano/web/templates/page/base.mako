@@ -17,6 +17,8 @@ ${next.body()}
 	<form action="${new_page_url}" method="POST">
 		<a href="${edit_page_url}">Edit this Page</a>
 		<br/><br/>
+		<a href="${history_page_url}">View History</a>
+		<br/><br/>
 		Child page name: <input type="text" name="page_title" />
 		<br />
 		Child page template:

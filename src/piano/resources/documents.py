@@ -53,8 +53,10 @@ class PageDocument(b.DocumentBase):
         'slug':str,
         'description':unicode,
         'created': datetime.datetime,
+        'archived': datetime.datetime,
         'keywords': list,
         'views': int,
+        'version': int,
         'source': str,
         'parent': str,
         'data': PageData,
@@ -68,6 +70,7 @@ class PageDocument(b.DocumentBase):
     ]
     default_values = {
         'views': 1,
+        'version': 0,
         'title': u'Home',
         'slug': 'home',
         'source': 'sample.home',

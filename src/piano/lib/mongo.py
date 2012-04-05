@@ -46,18 +46,23 @@ def ensure_indexes(full_index=False):
     """Hard-coded utility function to ensure the proper indexes are set across
     all of the databases and collections (excluding system ones).
     """
+    logger.info('Ensuring indexes on')
     try:
         db_names = filter(lambda x: not x.startswith('local'), conn.database_names())
         for db_name in db_names:
             db = conn[db_name]
             #Site Index
+            logger.info('  %s database', db_name)
             sites = db['sites']
             sites.ensure_index('slug', unique=True)
             if full_index:
                 sites.reindex()
             #Page Index (for each site)
-            site_list = filter(lambda x: not x.startswith('system'), db.collection_names())
+            site_list = filter(lambda x: not x.startswith('system') and
+                                         not x.endswith('archives'),
+                                db.collection_names())
             for site_name in site_list:
+                logger.info('    %s collection', site_name)
                 site = db[site_name]
                 site.ensure_index([('parent', ASC), ('slug', ASC)], unique=True)
                 if full_index:

@@ -18,6 +18,7 @@
    :members:
          
 """
+from copy import deepcopy
 from beaker.cache import cache_region
 from collections import namedtuple
 from piano import constants as c
@@ -79,12 +80,11 @@ class App(b.ContextBase):
         """
         #@cache_region('hourly', 'site.list')
         def _list_sites(a):
-            doc = self.get_conn(a).SiteDocument.find({}, {'title':1, 'slug':1})
-            return list(SiteItem(s['title'], '/'.join([a, s['slug']])) for s in doc)
+            docs = self.get_conn(a).SiteDocument.find({}, {'title':1, 'slug':1})
+            return list(SiteItem(s['title'], '/'.join([a, s['slug']])) for s in docs)
         #Get the list of available sites
         site_list = _list_sites(self.appname)
         return site_list
-
 
 class Page(b.ContextBase):
     """The page segment represents an individual page (i.e. home, contact us,
@@ -119,6 +119,10 @@ class Page(b.ContextBase):
             source=str(doc['source']),
             date_created=doc['created'])
 
+    def find_history(self):
+        docs = self.get_conn()['archives'].find({'pageid': self.id})
+        return list((v['version'], v['archived'])  for v in docs)
+
     def create(self, data):
         """Creates a new page and associates it to a parent.
         """
@@ -149,7 +153,14 @@ class Page(b.ContextBase):
         doc['title'] = self.title = data['page']['title']
         doc['slug'] = self.slug = self.__name__ = str(h.urlify(data['page']['slug']))
         doc['data'] = self.data = data['data']
+        doc['version'] = doc['version'] + 1
         doc.save(validate=False)
+        #Create archived version
+        ver = deepcopy(doc)
+        ver['pageid'] = doc['_id']
+        ver['archived'] = h.now()
+        del(ver['_id'])
+        self.get_conn()['archives'].insert(ver, validate=False)
         return self
 
 @implementer(i.ISite)

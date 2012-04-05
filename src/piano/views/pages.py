@@ -25,15 +25,25 @@ def view_page(context, request):
     template = template_name(context.source, c.VIEW_TEMPLATE)
     new_page_url = request.resource_url(context, 'new-page')
     edit_page_url = request.resource_url(context, 'edit-page')
+    history_page_url = request.resource_url(context, 'history')
     # Respond
     return render_to_response(
         template,
         mvc.PageModel(
             context,
             new_page_url=new_page_url,
-            edit_page_url=edit_page_url),
+            edit_page_url=edit_page_url,
+            history_page_url=history_page_url),
         request=request)
 
+@view_config(name='history', context=ctx.Page, renderer='piano.web.templates.page:history.mako', request_method='GET')
+def view_history(context, request):
+    """Renders a page using its associated template in either VIEW mode.
+    """
+    return dict(page_title="Page History",
+                page_slug=context.__name__,
+                versions = context.find_history())
+    
 @view_config(name='edit-page', context=ctx.Page, request_method='GET')
 @view_config(name='edit-page', context=ctx.Page, request_method='POST')
 def edit_page(context, request):
