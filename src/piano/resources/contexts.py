@@ -86,6 +86,15 @@ class App(b.ContextBase):
         site_list = _list_sites(self.appname)
         return site_list
 
+class Version(b.ContextBase):
+    """Returns a versioned document.
+    """
+    def __getitem__(self, key):
+        return self.f(
+            key,
+            self.__parent__.id,
+            self.__parent__)
+        
 class Page(b.ContextBase):
     """The page segment represents an individual page (i.e. home, contact us,
     site map, etc.).  If the page segment extends beyond a single element it 
@@ -94,6 +103,8 @@ class Page(b.ContextBase):
     """
     def __getitem__(self, key):
         try:
+            if key == c.V:
+                return Version(key=key, parent=self, f=self.find_version)
             return Page.find(key=key, parent=self)
         except:
             raise KeyError(key)
@@ -118,7 +129,29 @@ class Page(b.ContextBase):
             views=doc['views'],
             source=str(doc['source']),
             date_created=doc['created'])
-
+    
+    @classmethod
+    def find_version(cls, v, i, parent):
+        """Finds a single page by its parent and slug.
+        """
+        def _find_version(v, i, p, s, a):
+            return parent.get_conn(app=a, site=s)['archives'].one({
+                'pageid': i, 
+                'version':int(v)})
+        #Find the page
+        doc = _find_version(v, i, parent.__name__, parent.sitename, parent.appname)
+        return cls(
+            key=v,
+            parent=parent,
+            id=doc['_id'],
+            title=doc['title'],
+            data=doc['data'],
+            slug=doc['slug'],
+            origin=doc['parent'],
+            views=doc['views'],
+            source=str(doc['source']),
+            date_created=doc['created'])
+        
     def find_history(self):
         docs = self.get_conn()['archives'].find({'pageid': self.id})
         return list((v['version'], v['archived'])  for v in docs)

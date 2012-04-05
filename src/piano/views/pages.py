@@ -19,6 +19,7 @@ from pyramid.view import view_config
 template_name = lambda s, t: ':'.join([s, t])
 
 @view_config(context=ctx.Page, request_method='GET')
+@view_config(name='v', context=ctx.Page, request_method='GET')
 def view_page(context, request):
     """Renders a page using its associated template in either VIEW mode.
     """
@@ -62,7 +63,8 @@ def edit_page(context, request):
         mvc.PageModel(
             context,
             new_page_url = None,
-            edit_page_url=edit_page_url),
+            edit_page_url=edit_page_url,
+            history_page_url = None),
         request=request)
 
 @view_config(name='new-page', context=ctx.Site, renderer='piano.web.templates.page:new.mako', request_method='GET')

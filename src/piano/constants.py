@@ -41,3 +41,6 @@ PAGE_PREFIX = 'page_'
 #: Page data values suffix for model field(s)
 DATA_PREFIX = 'data_'
 
+#: Version URL segment
+V = 'v'
+
