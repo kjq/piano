@@ -147,7 +147,7 @@ class Page(b.ContextBase):
         """
         doc = self.get_conn().PageDocument.get_from_id(self.id)
         doc['title'] = self.title = data['page']['title']
-        doc['slug'] = self.slug = data['page']['slug']
+        doc['slug'] = self.slug = self.__name__ = str(h.urlify(data['page']['slug']))
         doc['data'] = self.data = data['data']
         doc.save(validate=False)
         return self

@@ -45,7 +45,7 @@ def edit_page(context, request):
     if 'form.submitted' in request.params:
         data = mvc.merge(request.POST.items())
         context.update(data)
-        return HTTPFound(location=request.resource_url(context, context.__name__))
+        return HTTPFound(location=request.resource_url(context))
     # Respond
     return render_to_response(
         template,
