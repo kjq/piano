@@ -2,9 +2,34 @@
 :mod:`piano.libs.mvc`
 ---------------------
 
+.. autofunction:: merge
+
 .. autoclass:: PageModel
 
 """
+
+from piano import constants as c
+
+def merge(source):
+    """Merges the data from the source (dict) into a unified dictionary.
+    """
+    # Site data
+    site_data = dict((k.replace(c.SITE_PREFIX, ''), v)
+                          for k, v in source
+                              if k.startswith(c.SITE_PREFIX))
+    # Page data
+    page_data = dict((k.replace(c.PAGE_PREFIX, ''), v)
+                          for k, v in source
+                              if k.startswith(c.PAGE_PREFIX))
+    # Model data
+    page_model = dict((k.replace(c.DATA_PREFIX, ''), v)
+                          for k, v in source
+                              if k.startswith(c.DATA_PREFIX))
+    return dict(
+        site=site_data,
+        page=page_data,
+        data=page_model)
+    
 class PageModel(dict):
     """ PageModel to standardize the dict values used across pages.
     """

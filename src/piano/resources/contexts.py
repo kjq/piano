@@ -130,8 +130,8 @@ class Page(b.ContextBase):
         #Try to import custom models and get doc
         try:
             #Explicitly look for a 'models' module with a 'PageModel' class
-            mod = __import__('.'.join([self.source, 'models']), fromlist=[self.source])
-            pdoc = getattr(mod, 'PageModel')
+            mod = __import__('.'.join([self.source, c.MODEL_PATH]), fromlist=[self.source])
+            pdoc = getattr(mod, c.MODEL_NAME)
         except ImportError:
             logger.warn("Cannot import '%s.models' module" % self.source)
         except AttributeError:

@@ -20,6 +20,12 @@ MONGO_URL = 'mongodb.url'
 #: MongoDB connection key
 MONGO_CONN = 'mongodb.conn'
 
+#: PageModel class name default
+MODEL_NAME = 'PageModel'
+
+#: PageModel package name default
+MODEL_PATH =  'models'
+
 #: Page 'view' template name
 VIEW_TEMPLATE = 'view.mako'
 
