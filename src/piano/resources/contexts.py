@@ -93,10 +93,10 @@ class Version(b.ContextBase):
     """Returns a versioned artifact using a delegated finder function.
     """
     def __getitem__(self, key):
-        return self.finder(
-            key,
-            self.__parent__,
-            versioned=True)
+        try:
+            return self.finder(key, self.__parent__, versioned=True)
+        except:
+            raise KeyError(key)
 
 class Page(b.ContextBase):
     """The page segment represents an individual page (i.e. home, contact us,
@@ -122,8 +122,7 @@ class Page(b.ContextBase):
         #@cache_region('hourly', 'page.find')
         def _find_page(k, p, s, a, v):
             if v:
-                return parent.history_data().one({'pageid': parent.id,
-                                             'version':int(k)})
+                return parent.history_data().one({'pageid': parent.id, 'version':int(k)})
             return parent.pages_data().one({'parent': p, 'slug':k})
         #Find the page
         doc = _find_page(key,
