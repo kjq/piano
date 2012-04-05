@@ -20,3 +20,15 @@ MONGO_URL = 'mongodb.url'
 #: MongoDB connection key
 MONGO_CONN = 'mongodb.conn'
 
+#: Page 'view' template name
+VIEW_TEMPLATE = 'view.mako'
+
+#: Page 'edit' template name
+EDIT_TEMPLATE = 'edit.mako'
+
+#: Page values suffix for field(s)
+PAGE_PREFIX = 'page.'
+
+#: Page data values suffix for model field(s)
+DATA_PREFIX = 'data.'
+

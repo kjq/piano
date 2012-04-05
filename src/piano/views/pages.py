@@ -7,6 +7,7 @@
 .. autofunction:: piano.views.pages.create_page
 
 """
+from piano.lib import constants as c
 from piano.lib import helpers as h
 from piano.lib import mvc
 from piano.resources import contexts as ctx
@@ -14,18 +15,13 @@ from pyramid.httpexceptions import HTTPFound
 from pyramid.renderers import render_to_response
 from pyramid.view import view_config
 
-VIEW_TEMPLATE = 'page_view.mako'
-EDIT_TEMPLATE = 'page_edit.mako'
-PAGE_PREFIX = 'page.'
-DATA_PREFIX = 'data.'
-
-build_template = lambda s,t: ':'.join([s, t])
+template_name = lambda s,t: ':'.join([s, t])
 
 @view_config(context=ctx.Page, request_method='GET')
 def view_page(context, request):
     """Renders a page using its associated template in either VIEW mode.
     """
-    template = build_template(context.source, VIEW_TEMPLATE)
+    template = template_name(context.source, c.VIEW_TEMPLATE)
     edit_page_url = request.resource_url(context, 'edit-page')
     save_page_url = request.resource_url(context, 'save-page')
     # Respond
@@ -42,15 +38,15 @@ def view_page(context, request):
 def edit_page(context, request):
     """Renders a page using its associated template in either EDIT mode.
     """
-    template = build_template(context.source, EDIT_TEMPLATE)
+    template = template_name(context.source, c.EDIT_TEMPLATE)
     save_page_url = request.resource_url(context, 'edit-page')
     # Handle submission
     if 'form.submitted' in request.params:
         title = request.params['page.title']
         slug = str(h.urlify(request.params['page.slug']))
         # Parse the data elements
-        data = dict((k.replace(DATA_PREFIX, ''), v)
-                    for k, v in request.POST.items() if k.startswith(DATA_PREFIX))
+        data = dict((k.replace(c.DATA_PREFIX, ''), v)
+                    for k, v in request.POST.items() if k.startswith(c.DATA_PREFIX))
         # Persist Page
         page = ctx.Page(
             id=context.id,
