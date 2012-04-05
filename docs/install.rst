@@ -36,7 +36,7 @@ Installation using Buildout
 
 Install MongoDB on Unix
 ##########################
-1. ``bin/buildout install mongodb``
+1. ``bin/buildout install mongodb-nix``
 
 
 Install MongoDB on Windows
