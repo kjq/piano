@@ -43,7 +43,17 @@ class ContextBase(dict):
         """Returns the name of the site.  
         """
         return self.__site__.__name__
-
+    
+    def archives(self):
+        """Returns the archives collection.
+        """
+        return self.get_conn()['archives']
+    
+    def pages(self):
+        """Returns the pages collection.
+        """
+        return self.get_conn()['pages']
+    
     def get_conn(self, app=None, site=None):
         """Returns a raw MongoDB connection.  If none of the arguments are
         set it will try to configure the connection based on the instances 

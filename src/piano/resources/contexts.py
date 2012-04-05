@@ -147,7 +147,7 @@ class Page(b.ContextBase):
     def find_history(self):
         """Finds the history for the page.
         """
-        docs = self.get_conn()['archives'].find({'pageid': self.id})
+        docs = self.archives().find({'pageid': self.id})
         return list((v['version'], v['archived'])  for v in docs)
 
     def create(self, data):
@@ -189,7 +189,7 @@ class Page(b.ContextBase):
             ver['pageid'] = doc['_id']
             ver['archived'] = h.now()
             del(ver['_id'])
-            self.get_conn()['archives'].insert(ver, validate=False)
+            self.archives().insert(ver, validate=False)
         return self
 
 @implementer(i.ISite)
