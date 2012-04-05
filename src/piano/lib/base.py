@@ -44,12 +44,12 @@ class ContextBase(dict):
         """
         return self.__site__.__name__
     
-    def archives(self):
-        """Returns the archives collection.
+    def history_data(self):
+        """Returns the history collection.
         """
-        return self.get_conn()['archives']
+        return self.get_conn()['history']
     
-    def pages(self):
+    def pages_data(self):
         """Returns the pages collection.
         """
         return self.get_conn()['pages']

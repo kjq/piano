@@ -51,20 +51,32 @@ def ensure_indexes(full_index=False):
         db_names = filter(lambda x: not x.startswith('local'), conn.database_names())
         for db_name in db_names:
             db = conn[db_name]
-            #Site Index
+            #Sites
             logger.info('  %s database', db_name)
             sites = db['sites']
             sites.ensure_index('slug', unique=True)
             if full_index:
                 sites.reindex()
-            #Page Index (for each site)
-            site_list = filter(lambda x: not x.startswith('system') and
-                                         not x.endswith('archives'),
-                                db.collection_names())
-            for site_name in site_list:
-                logger.info('    %s collection', site_name)
+            #Pages
+            pages_list = filter(lambda x: x.endswith('pages'), db.collection_names())
+            for site_name in pages_list:
+                logger.info('    %s', site_name)
                 site = db[site_name]
-                site.ensure_index([('parent', ASC), ('slug', ASC)], unique=True)
+                site.ensure_index([
+                    ('parent', ASC),
+                    ('slug', ASC)],
+                    unique=True)
+                if full_index:
+                    site.reindex()
+            #Historys
+            history_list = filter(lambda x: x.endswith('history'), db.collection_names())
+            for site_name in history_list:
+                logger.info('    %s', site_name)
+                site = db[site_name]
+                site.ensure_index([
+                    ('pageid', ASC),
+                    ('version', ASC)],
+                    unique=True)
                 if full_index:
                     site.reindex()
     except Exception, x:

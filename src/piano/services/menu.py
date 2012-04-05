@@ -53,7 +53,7 @@ class MenuService(object):
             return HTTPInternalServerError("Request did not execute properly.")
 
     def _children(self, parent, site, app):
-        coll = self.conn[app][site]
+        coll = self.conn[app][site]['pages']
         #Find children of parent then all child in that list
         children = coll.find({'parent': parent}, {'slug':1, 'title':1})
         #Lamba to resolve paths

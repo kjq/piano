@@ -90,7 +90,7 @@ class App(b.ContextBase):
         return site_list
 
 class Version(b.ContextBase):
-    """Returns a versioned context.
+    """Returns a versioned artifact using a delegated finder function.
     """
     def __getitem__(self, key):
         return self.finder(
@@ -119,13 +119,12 @@ class Page(b.ContextBase):
     def find(cls, key, parent, versioned=False):
         """Finds a page by its parent and slug or version.
         """
-        @cache_region('hourly', 'page.find')
+        #@cache_region('hourly', 'page.find')
         def _find_page(k, p, s, a, v):
-            coll = parent.get_conn(app=a, site=s)
             if v:
-                return coll['archives'].one({'pageid': parent.id,
+                return parent.history_data().one({'pageid': parent.id,
                                              'version':int(k)})
-            return coll.one({'parent': p, 'slug':k})
+            return parent.pages_data().one({'parent': p, 'slug':k})
         #Find the page
         doc = _find_page(key,
                          parent.__name__,
@@ -147,13 +146,13 @@ class Page(b.ContextBase):
     def find_history(self):
         """Finds the history for the page.
         """
-        docs = self.archives().find({'pageid': self.id})
+        docs = self.history_data().find({'pageid': self.id})
         return list((v['version'], v['archived'])  for v in docs)
 
     def create(self, data):
         """Creates a new page and associates it to a parent.
         """
-        doc = self.get_conn().PageDocument()
+        doc = self.pages_data().PageDocument()
         doc['title'] = self.title = data['page']['title']
         doc['slug'] = self.slug = self.__name__ = str(h.urlify(self.title))
         doc['source'] = self.source = str(data['page']['source'])
@@ -161,8 +160,7 @@ class Page(b.ContextBase):
         #Try to import custom models and get doc
         try:
             #Explicitly look for a 'models' module with a 'PageModel' class
-            mod = __import__('.'.join([self.source, c.MODEL_PATH]),
-                             fromlist=[self.source])
+            mod = __import__('.'.join([self.source, c.MODEL_PATH]), fromlist=[self.source])
             pdoc = getattr(mod, c.MODEL_NAME)
         except ImportError:
             logger.warn("Cannot import '%s.models' module" % self.source)
@@ -177,7 +175,7 @@ class Page(b.ContextBase):
     def update(self, data, archive=True):
         """Update myself with data (and copy to the archives collection)
         """
-        doc = self.get_conn().PageDocument.get_from_id(self.id)
+        doc = self.pages_data().PageDocument.get_from_id(self.id)
         doc['title'] = self.title = data['page']['title']
         doc['slug'] = self.slug = self.__name__ = str(h.urlify(data['page']['slug']))
         doc['data'] = self.data = data['data']
@@ -189,7 +187,7 @@ class Page(b.ContextBase):
             ver['pageid'] = doc['_id']
             ver['archived'] = h.now()
             del(ver['_id'])
-            self.archives().insert(ver, validate=False)
+            self.history_data().insert(ver, validate=False)
         return self
 
 @implementer(i.ISite)
@@ -232,10 +230,7 @@ class Site(Page):
         #Create default (home) page?
         if include_default:
             page = Page(parent=self)
-            page.create(dict(
-                page=dict(
-                    title=u'Home',
-                    source='sample.home')))
+            page.create(dict(page=dict(title=u'Home', source='sample.home')))
         return self
 
     def delete(self):
