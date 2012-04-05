@@ -4,19 +4,22 @@
 
 .. autoclass:: App
    :members:
-   
-.. autoclass:: Service
-   :members:
 
-.. autoclass:: Site
-   :members:
-   
 .. autoclass:: Page
    :members:
 
 .. autoclass:: Root
    :members:
-         
+
+.. autoclass:: Service
+   :members:
+
+.. autoclass:: Site
+   :members:
+
+.. autoclass:: Version
+   :members:
+            
 """
 from copy import deepcopy
 from beaker.cache import cache_region
@@ -75,25 +78,25 @@ class App(b.ContextBase):
         except:
             raise KeyError(key)
 
-    def list_sites(self):
+    def find_sites(self):
         """Returns a list of sites under the application.
         """
         #@cache_region('hourly', 'site.list')
-        def _list_sites(a):
+        def _find_sites(a):
             docs = self.get_conn(a).SiteDocument.find({}, {'title':1, 'slug':1})
             return list(SiteItem(s['title'], '/'.join([a, s['slug']])) for s in docs)
         #Get the list of available sites
-        site_list = _list_sites(self.appname)
+        site_list = _find_sites(self.appname)
         return site_list
 
 class Version(b.ContextBase):
-    """Returns a versioned document.
+    """Returns a versioned context.
     """
     def __getitem__(self, key):
         return self.finder(
             key,
-            self.__parent__.id,
-            self.__parent__)
+            self.__parent__,
+            versioned=True)
         
 class Page(b.ContextBase):
     """The page segment represents an individual page (i.e. home, contact us,
@@ -104,20 +107,30 @@ class Page(b.ContextBase):
     def __getitem__(self, key):
         try:
             if key == c.V:
-                return Version(key=key, parent=self, finder=self.find_version)
+                #Return a versioned instance of the page
+                return Version(key=key, parent=self, finder=self.find)
+            #Return the head page
             return Page.find(key=key, parent=self)
         except:
             raise KeyError(key)
-
+    
     @classmethod
-    def find(cls, key, parent):
-        """Finds a single page by its parent and slug.
+    def find(cls, key, parent, versioned=False):
+        """Finds a page by its parent and slug or version.
         """
         @cache_region('hourly', 'page.find')
-        def _find_page(k, p, s, a):
-            return parent.get_conn(app=a, site=s).one({'parent': p, 'slug':k})
+        def _find_page(k, p, s, a, v):
+            coll = parent.get_conn(app=a, site=s)
+            if v:
+                return coll['archives'].one({'pageid': parent.id, 
+                                             'version':int(k)})
+            return coll.one({'parent': p, 'slug':k})
         #Find the page
-        doc = _find_page(key, parent.__name__, parent.sitename, parent.appname)
+        doc = _find_page(key, 
+                         parent.__name__, 
+                         parent.sitename, 
+                         parent.appname,
+                         versioned)
         return cls(
             key=key,
             parent=parent,
@@ -129,30 +142,10 @@ class Page(b.ContextBase):
             views=doc['views'],
             source=str(doc['source']),
             date_created=doc['created'])
-    
-    @classmethod
-    def find_version(cls, v, i, parent):
-        """Finds a single page by its parent and slug.
-        """
-        def _find_version(v, i, p, s, a):
-            return parent.get_conn(app=a, site=s)['archives'].one({
-                'pageid': i, 
-                'version':int(v)})
-        #Find the page
-        doc = _find_version(v, i, parent.__name__, parent.sitename, parent.appname)
-        return cls(
-            key=v,
-            parent=parent,
-            id=doc['_id'],
-            title=doc['title'],
-            data=doc['data'],
-            slug=doc['slug'],
-            origin=doc['parent'],
-            views=doc['views'],
-            source=str(doc['source']),
-            date_created=doc['created'])
         
     def find_history(self):
+        """Finds the history for the page.
+        """
         docs = self.get_conn()['archives'].find({'pageid': self.id})
         return list((v['version'], v['archived'])  for v in docs)
 
@@ -179,8 +172,8 @@ class Page(b.ContextBase):
         doc.save()
         return self
 
-    def update(self, data):
-        """Update myself with data
+    def update(self, data, archive=True):
+        """Update myself with data (and copy to the archives collection)
         """
         doc = self.get_conn().PageDocument.get_from_id(self.id)
         doc['title'] = self.title = data['page']['title']
@@ -188,12 +181,13 @@ class Page(b.ContextBase):
         doc['data'] = self.data = data['data']
         doc['version'] = doc['version'] + 1
         doc.save(validate=False)
-        #Create archived version
-        ver = deepcopy(doc)
-        ver['pageid'] = doc['_id']
-        ver['archived'] = h.now()
-        del(ver['_id'])
-        self.get_conn()['archives'].insert(ver, validate=False)
+        #Create archived version?
+        if archive:
+            ver = deepcopy(doc)
+            ver['pageid'] = doc['_id']
+            ver['archived'] = h.now()
+            del(ver['_id'])
+            self.get_conn()['archives'].insert(ver, validate=False)
         return self
 
 @implementer(i.ISite)

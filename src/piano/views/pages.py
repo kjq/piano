@@ -2,11 +2,13 @@
 :mod:`piano.views.pages`
 ------------------------
 
-.. autofunction:: piano.views.pages.view_page
+.. autofunction:: piano.views.pages.edit_page
 
 .. autofunction:: piano.views.pages.new_page
 
-.. autofunction:: piano.views.pages.edit_page
+.. autofunction:: piano.views.pages.view_page
+
+.. autofunction:: piano.views.pages.view_history
 
 """
 from piano import constants as c
@@ -19,9 +21,9 @@ from pyramid.view import view_config
 template_name = lambda s, t: ':'.join([s, t])
 
 @view_config(context=ctx.Page, request_method='GET')
-@view_config(name='v', context=ctx.Page, request_method='GET')
+@view_config(name=c.V, context=ctx.Page, request_method='GET')
 def view_page(context, request):
-    """Renders a page using its associated template in either VIEW mode.
+    """Renders a page using its associated template in VIEW mode.
     """
     template = template_name(context.source, c.VIEW_TEMPLATE)
     new_page_url = request.resource_url(context, 'new-page')
@@ -39,7 +41,7 @@ def view_page(context, request):
 
 @view_config(name='history', context=ctx.Page, renderer='piano.web.templates.page:history.mako', request_method='GET')
 def view_history(context, request):
-    """Renders the page history.
+    """Renders the history for the page and allows for rollbacks.
     """
     return dict(page_title="Page History",
                 page_slug=context.__name__,
@@ -48,7 +50,7 @@ def view_history(context, request):
 @view_config(name='edit-page', context=ctx.Page, request_method='GET')
 @view_config(name='edit-page', context=ctx.Page, request_method='POST')
 def edit_page(context, request):
-    """Renders a page using its associated template in either EDIT mode.
+    """Renders a page using its associated template in EDIT mode.
     """
     template = template_name(context.source, c.EDIT_TEMPLATE)
     edit_page_url = request.resource_url(context, 'edit-page')
@@ -71,7 +73,7 @@ def edit_page(context, request):
 @view_config(name='new-page', context=ctx.Site, request_method='POST')
 @view_config(name='new-page', context=ctx.Page, request_method='POST')
 def new_page(context, request):
-    """Add a new page.
+    """Adds a new page.
     """
     # Handle submission
     if 'form.submitted' in request.params:

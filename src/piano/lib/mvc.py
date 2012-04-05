@@ -11,7 +11,11 @@
 from piano import constants as c
 
 def merge(source):
-    """Merges the data from the source (dict) into a unified dictionary.
+    """Merges the data from the source (dict) into a unified dictionary
+    consisting of three dictionaries:
+    - site
+    - page
+    - data
     """
     # Site data
     site_data = dict((k.replace(c.SITE_PREFIX, ''), v)
