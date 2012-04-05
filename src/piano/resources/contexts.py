@@ -161,7 +161,7 @@ class Page(b.ContextBase):
         #Try to import custom models and get doc
         try:
             #Explicitly look for a 'models' module with a 'PageModel' class
-            mod = __import__('.'.join([self.source, c.MODEL_PATH]), 
+            mod = __import__('.'.join([self.source, c.MODEL_PATH]),
                              fromlist=[self.source])
             pdoc = getattr(mod, c.MODEL_NAME)
         except ImportError:
@@ -231,14 +231,11 @@ class Site(Page):
         doc.save()
         #Create default (home) page?
         if include_default:
-            data = dict(
+            page = Page(parent=self)
+            page.create(dict(
                 page=dict(
                     title=u'Home',
-                    source='sample.home'
-                )
-            )
-            page = Page(parent=self)
-            page.create(data)
+                    source='sample.home')))
         return self
 
     def delete(self):
