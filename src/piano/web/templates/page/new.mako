@@ -1,6 +1,6 @@
 <%inherit file="piano.web.templates:base.mako" />
 
-<form action="${save_page_url}" method="POST">
+<form action="${new_page_url}" method="POST">
 	Child page name: <input type="text" name="page_title" />
 	<br />
 	Child page template:

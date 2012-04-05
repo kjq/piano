@@ -7,5 +7,5 @@
 <br/>
 <p>#Views: ${page_views}</p>
 <%menu:widget name="menu"/>
-<a href="${add_page_url}">Add a Page</a>
+<a href="${new_page_url}">Add a Page</a>
 <br/><br/>

@@ -4,7 +4,7 @@
 <p>This is my <b>EDITABLE</b> home body</p>
 ------------------------------------------
 
-<form action="${save_page_url}" method="POST">
+<form action="${edit_page_url}" method="POST">
 	Page name: <input type="text" name="page_title" value="${page_title}"/>
 	<br/>
 	Page slug: <input type="text" name="page_slug" value="${page_slug}"/>

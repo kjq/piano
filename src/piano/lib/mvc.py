@@ -38,7 +38,7 @@ class PageModel(dict):
         self['page_id'] = context.id
         self['page_slug'] = context.slug
         self['page_title'] = context.title
-        self['page_template'] = getattr(context, 'template', None)
+        self['page_template'] = getattr(context, 'source', None)
         self['page_data'] = getattr(context, 'data', None)
         #Site specifics
         site = context.__site__

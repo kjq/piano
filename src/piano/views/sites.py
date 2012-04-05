@@ -18,13 +18,13 @@ from pyramid.view import view_config
 def view_site(context, request):
     """Main view of the site.
     """
-    add_page_url = request.resource_url(context, 'new-page')
+    new_page_url = request.resource_url(context, 'new-page')
     # Respond
     return mvc.PageModel(
         context,
         page_views=context.views,
         page_created=context.date_created,
-        add_page_url=add_page_url)
+        new_page_url=new_page_url)
 
 @view_config(name='new-site', context=ctx.App, renderer='piano.web.templates.site:new.mako', request_method='GET')
 @view_config(name='new-site', context=ctx.App, request_method='POST')
@@ -37,11 +37,11 @@ def new_site(context, request):
         site = ctx.Site(parent=context)
         site.create(data, include_default=True)
         return HTTPFound(location=request.resource_url(context, site.__name__))
-    save_site_url = request.resource_url(context, 'new-site')
+    new_site_url = request.resource_url(context, 'new-site')
     # Respond
     return dict(
         page_title="New Site",
-        save_site_url=save_site_url)
+        new_site_url=new_site_url)
 
 
 @view_config(name="delete-site", context=ctx.Site, request_method='GET')
