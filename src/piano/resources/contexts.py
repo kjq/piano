@@ -127,7 +127,7 @@ class Page(b.ContextBase):
             source=str(data['source']),
             date_created=data['created'])
 
-    def save(self):
+    def create(self):
         """Creates a new page and associates it to a parent.
         """
         data = self.get_conn().PageDocument()
@@ -145,11 +145,21 @@ class Page(b.ContextBase):
         except AttributeError:
             logger.warn("Cannot load '%s.models.PageModel' class" % self.source)
         else:
-            #Embed document
+            #Embed a new document
             data['data'] = doc()
         data.save()
         return self
-
+    
+    def update(self):
+        """Updates a page.
+        """
+        data = self.get_conn().PageDocument.get_from_id(self.id)
+        data['title'] = self.title
+        data['slug'] = self.slug
+        data['data'] = self.data
+        data.save(validate=False)
+        return self
+    
 @implementer(i.ISite)
 class Site(Page):
     """The site segment represents the entry-point into a collection of pages.
@@ -194,7 +204,7 @@ class Site(Page):
                 parent=self,
                 title=u'Home',
                 slug='home',
-                source='sample.home').save()
+                source='sample.home').create()
         return self
 
     def delete(self):

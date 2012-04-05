@@ -71,3 +71,5 @@ class DocumentBase(Document):
     use_schemaless = False
     #: Validate models.
     skip_validation = False
+    #: Authorized types.
+    authorized_types = Document.authorized_types + [str]

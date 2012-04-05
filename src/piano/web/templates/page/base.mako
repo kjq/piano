@@ -6,7 +6,15 @@
 
 <%menu:widget name="menu" page='${page_slug}'/>
 
+<p>------ Actions for '${page_template}' -----</p>
+
+%if edit_page_url is not None:
+	<a href="${edit_page_url}">Edit this Page</a>
+%endif
+
+<br/><br/>
 <p>------ Body from '${page_template}' -----</p>
+
 <br/>
 ${next.body()}
 <br/>
