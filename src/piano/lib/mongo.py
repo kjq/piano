@@ -54,6 +54,7 @@ def ensure_indexes(full_index=False):
             #Sites
             logger.info('  %s database', db_name)
             sites = db['sites']
+            logger.info('    sites')
             sites.ensure_index('slug', unique=True)
             if full_index:
                 sites.reindex()
