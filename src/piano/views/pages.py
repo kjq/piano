@@ -15,7 +15,7 @@ from pyramid.httpexceptions import HTTPFound
 from pyramid.renderers import render_to_response
 from pyramid.view import view_config
 
-template_name = lambda s,t: ':'.join([s, t])
+template_name = lambda s, t: ':'.join([s, t])
 
 @view_config(context=ctx.Page, request_method='GET')
 def view_page(context, request):

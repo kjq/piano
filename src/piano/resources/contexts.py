@@ -118,7 +118,7 @@ class Page(b.ContextBase):
             views=doc['views'],
             source=str(doc['source']),
             date_created=doc['created'])
-    
+
     def create(self, data):
         """Creates a new page and associates it to a parent.
         """
@@ -141,7 +141,7 @@ class Page(b.ContextBase):
             doc['data'] = pdoc()
         doc.save()
         return self
-    
+
     def update(self, data):
         """Update myself with data
         """
@@ -192,7 +192,7 @@ class Site(Page):
         #Create default (home) page?
         if include_default:
             data = dict(
-                page = dict(
+                page=dict(
                     title=u'Home',
                     source='sample.home'
                 )
