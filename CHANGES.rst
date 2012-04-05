@@ -29,3 +29,5 @@ Changelog
 
 0.4
 ---
+- Added versioning to page data
+- Allow for editing page data

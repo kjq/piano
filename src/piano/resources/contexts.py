@@ -90,7 +90,7 @@ class Version(b.ContextBase):
     """Returns a versioned document.
     """
     def __getitem__(self, key):
-        return self.f(
+        return self.finder(
             key,
             self.__parent__.id,
             self.__parent__)
@@ -104,7 +104,7 @@ class Page(b.ContextBase):
     def __getitem__(self, key):
         try:
             if key == c.V:
-                return Version(key=key, parent=self, f=self.find_version)
+                return Version(key=key, parent=self, finder=self.find_version)
             return Page.find(key=key, parent=self)
         except:
             raise KeyError(key)

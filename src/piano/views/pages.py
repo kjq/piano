@@ -39,7 +39,7 @@ def view_page(context, request):
 
 @view_config(name='history', context=ctx.Page, renderer='piano.web.templates.page:history.mako', request_method='GET')
 def view_history(context, request):
-    """Renders a page using its associated template in either VIEW mode.
+    """Renders the page history.
     """
     return dict(page_title="Page History",
                 page_slug=context.__name__,
