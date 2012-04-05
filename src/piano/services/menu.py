@@ -36,7 +36,7 @@ class MenuService(object):
             self.page = None
         else:
             self.parent = self.page
-        
+
     @view_config(request_method='GET')
     def get(self):
         """Returns a dictionary of pages with links.
@@ -51,7 +51,7 @@ class MenuService(object):
             return self._children(self.parent, self.site, self.app)
         except:
             return HTTPInternalServerError("Request did not execute properly.")
-    
+
     def _children(self, parent, site, app):
         coll = self.conn[app][site]
         #Find children of parent then all child in that list
@@ -61,5 +61,4 @@ class MenuService(object):
         #Build children for menu
         return [dict(title=child['title'],
                      slug=child['slug'],
-                     url= r(child['slug'])) for child in children]
-        
+                     url=r(child['slug'])) for child in children]

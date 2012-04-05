@@ -9,8 +9,8 @@
 .. autofunction:: piano.views.sites.delete_site
 
 """
-from piano.lib import helpers as h
 from piano.lib import mvc
+from piano.lib import mapper
 from piano.resources import contexts as ctx
 from pyramid.httpexceptions import HTTPFound
 from pyramid.view import view_config
@@ -34,14 +34,9 @@ def new_site(context, request):
     """
     # Handle submission
     if 'form.submitted' in request.params:
-        title = request.params['site_title']
-        slug = str(h.urlify(title))
-        # Persist
-        site = ctx.Site(
-            key=slug,
-            parent=context,
-            title=title,
-            slug=slug).save(include_default=True);
+        data = mapper.merge(request.POST.items())
+        site = ctx.Site(parent=context)
+        site.create(data, include_default=True)
         return HTTPFound(location=request.resource_url(context, site.__name__))
     save_site_url = request.resource_url(context, 'new-site')
     # Respond

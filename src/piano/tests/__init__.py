@@ -2,7 +2,7 @@ import unittest
 
 from pyramid import testing
 from piano.lib.mapper import Mapper as m
-        
+
 class DummySource():
     def __init__(self):
         self.key1 = 'abc'
@@ -51,4 +51,4 @@ class MapperTests(unittest.TestCase):
         self.assertEqual('abc', self.dummy_dict['dkey1'])
         self.assertEqual('xyz', self.dummy_dict['dkey2'])
         self.assertEqual('qrs', self.dummy_dict['key3'])
-        
+

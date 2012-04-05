@@ -44,7 +44,7 @@ class PageData(b.DocumentBase):
     module 'models' and a class 'PageModel' which extends this class.
     """
     structure = {}
-    
+
 class PageDocument(b.DocumentBase):
     """Document representation of a page.
     """
@@ -75,12 +75,13 @@ class PageDocument(b.DocumentBase):
     }
     #Use autorefs for embedded data docs
     use_auto_refs = True
-    
+
+
 # Manually register documents    
 try:
     from piano.lib.mongo import conn
     conn.register([
-        PageDocument, 
+        PageDocument,
         SiteDocument])
 except:
     pass

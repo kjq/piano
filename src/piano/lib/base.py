@@ -19,8 +19,8 @@ class ContextBase(dict):
     __parent__ = None
     __app__ = None
     __site__ = None
-    
-    def __init__(self, key=None, parent=None,**kwargs):
+
+    def __init__(self, key=None, parent=None, **kwargs):
         self.__name__ = key
         self.__parent__ = parent
         # Reference request
@@ -31,19 +31,19 @@ class ContextBase(dict):
         # Assign kwargs to self (used as self.XXX not self['xxx'])
         for key in kwargs:
             setattr(self, key, kwargs[key])
-    
+
     @property
     def appname(self):
         """Returns the name of the application.  
         """
         return self.__app__.__name__
-    
+
     @property
     def sitename(self):
         """Returns the name of the site.  
         """
         return self.__site__.__name__
-    
+
     def get_conn(self, app=None, site=None):
         """Returns a raw MongoDB connection.  If none of the arguments are
         set it will try to configure the connection based on the instances 
@@ -60,8 +60,8 @@ class ContextBase(dict):
         if site is not None:
             mongo_conn = mongo_conn[site]
         return mongo_conn
-    
-    
+
+
 class DocumentBase(Document):
     """ Base (abstract) class for all documents (MongoDB).
     """

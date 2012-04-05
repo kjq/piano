@@ -16,7 +16,7 @@ def say_hello(context, msg):
 def get_some_data(context):
     """Returns a dict with data to the page.
     """
-    return { 
+    return {
         'key1' : 'Hello World!',
         'key2' : 'Goodbye World!',
         'key3' : 'Foobar...'}

@@ -13,9 +13,9 @@ class Breadcrumb(object):
     trail.
     """
     def __init__(self, uri=None):
-        if uri: 
+        if uri:
             self.uri = uri      # invoke uri.setter
-        else: 
+        else:
             self._uri = uri     # set _uri to none
 
     @property

@@ -22,6 +22,7 @@ from beaker.cache import cache_region
 from collections import namedtuple
 from piano import constants as c
 from piano.lib import base as b
+from piano.lib import helpers as h
 from piano.resources import interfaces as i
 from pyramid.security import Allow, Everyone
 from zope.interface import implementer
@@ -78,8 +79,8 @@ class App(b.ContextBase):
         """
         #@cache_region('hourly', 'site.list')
         def _list_sites(a):
-            data = self.get_conn(a).SiteDocument.find({}, {'title':1, 'slug':1})
-            return list(SiteItem(s['title'], '/'.join([a, s['slug']])) for s in data)
+            doc = self.get_conn(a).SiteDocument.find({}, {'title':1, 'slug':1})
+            return list(SiteItem(s['title'], '/'.join([a, s['slug']])) for s in doc)
         #Get the list of available sites
         site_list = _list_sites(self.appname)
         return site_list
@@ -105,52 +106,52 @@ class Page(b.ContextBase):
         def _find_page(k, p, s, a):
             return parent.get_conn(app=a, site=s).one({'parent': p, 'slug':k})
         #Find the page
-        data = _find_page(key, parent.__name__, parent.sitename, parent.appname)
+        doc = _find_page(key, parent.__name__, parent.sitename, parent.appname)
         return cls(
             key=key,
             parent=parent,
-            id=data['_id'],
-            title=data['title'],
-            data=data['data'],
-            slug=data['slug'],
-            origin=data['parent'],
-            views=data['views'],
-            source=str(data['source']),
-            date_created=data['created'])
-
-    def create(self):
+            id=doc['_id'],
+            title=doc['title'],
+            data=doc['data'],
+            slug=doc['slug'],
+            origin=doc['parent'],
+            views=doc['views'],
+            source=str(doc['source']),
+            date_created=doc['created'])
+    
+    def create(self, data):
         """Creates a new page and associates it to a parent.
         """
-        data = self.get_conn().PageDocument()
-        data['title'] = self.title
-        data['slug'] = self.slug
-        data['parent'] = str(self.__parent__.__name__)
-        data['source'] = str(self.source)
+        doc = self.get_conn().PageDocument()
+        doc['title'] = self.title = data['page']['title']
+        doc['slug'] = self.slug = self.__name__ = str(h.urlify(self.title))
+        doc['source'] = self.source = str(data['page']['source'])
+        doc['parent'] = str(self.__parent__.__name__)
         #Try to import custom models and get doc
         try:
             #Explicitly look for a 'models' module with a 'PageModel' class
             mod = __import__('.'.join([self.source, 'models']), fromlist=[self.source])
-            doc = getattr(mod, 'PageModel')
+            pdoc = getattr(mod, 'PageModel')
         except ImportError:
             logger.warn("Cannot import '%s.models' module" % self.source)
         except AttributeError:
             logger.warn("Cannot load '%s.models.PageModel' class" % self.source)
         else:
             #Embed a new document
-            data['data'] = doc()
-        data.save()
+            doc['data'] = pdoc()
+        doc.save()
         return self
     
-    def update(self):
-        """Updates a page.
+    def update(self, data):
+        """Update myself with data
         """
-        data = self.get_conn().PageDocument.get_from_id(self.id)
-        data['title'] = self.title
-        data['slug'] = self.slug
-        data['data'] = self.data
-        data.save(validate=False)
+        doc = self.get_conn().PageDocument.get_from_id(self.id)
+        doc['title'] = self.title = data['page']['title']
+        doc['slug'] = self.slug = data['page']['slug']
+        doc['data'] = self.data = data['data']
+        doc.save(validate=False)
         return self
-    
+
 @implementer(i.ISite)
 class Site(Page):
     """The site segment represents the entry-point into a collection of pages.
@@ -170,32 +171,34 @@ class Site(Page):
         def _find_site(k, a):
             return parent.get_conn(app=a).SiteDocument.one({'slug':k})
         #Find the site
-        data = _find_site(key, parent.__name__)
+        doc = _find_site(key, parent.__name__)
         return cls(
             key=key,
             parent=parent,
-            id=data['_id'],
-            title=data['title'],
-            slug=data['slug'],
-            views=data['views'],
-            date_created=data['created'])
+            id=doc['_id'],
+            title=doc['title'],
+            slug=doc['slug'],
+            views=doc['views'],
+            date_created=doc['created'])
 
-    def save(self, include_default=False):
+    def create(self, data, include_default=False):
         """Saves the primary site details and creates a new collection to house 
         the pages in.  It also creates a default (Home) page if needed.
         """
-        data = self.get_conn(app=self.appname).SiteDocument()
-        data['title'] = self.title
-        data['slug'] = self.slug
-        data.save()
+        doc = self.get_conn(app=self.appname).SiteDocument()
+        doc['title'] = self.title = data['site']['title']
+        doc['slug'] = self.slug = self.__name__ = str(h.urlify(self.title))
+        doc.save()
         #Create default (home) page?
         if include_default:
-            Page(
-                key='home',
-                parent=self,
-                title=u'Home',
-                slug='home',
-                source='sample.home').create()
+            data = dict(
+                page = dict(
+                    title=u'Home',
+                    source='sample.home'
+                )
+            )
+            page = Page(parent=self)
+            page.create(data)
         return self
 
     def delete(self):

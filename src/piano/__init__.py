@@ -35,8 +35,8 @@ def main(global_config, **settings):
     # Configure databases (we use a closure to later abstract Mongo)
     def setup_database():
         mongo.setup_db(
-            config, 
-            settings, 
+            config,
+            settings,
             full_index=False)
     setup_database()
     logger.debug('Sites WSGI instance ready')
