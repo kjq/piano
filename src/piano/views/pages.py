@@ -14,6 +14,8 @@ from pyramid.httpexceptions import HTTPFound
 from pyramid.renderers import render_to_response
 from pyramid.view import view_config
 
+DATA_PREFIX = 'data.'
+
 @view_config(context=ctx.Page, request_method='GET')
 def view_page(context, request):
     """Renders a page using its associated template in either VIEW mode.
@@ -42,8 +44,8 @@ def edit_page(context, request):
         title = request.params['page.title']
         slug = str(h.urlify(request.params['page.slug']))
         # Parse the data elements
-        data = dict((k.replace('data.', ''), v)
-                    for k, v in request.POST.items() if k.startswith('data.'))
+        data = dict((k.replace(DATA_PREFIX, ''), v)
+                    for k, v in request.POST.items() if k.startswith(DATA_PREFIX))
         # Persist Page
         page = ctx.Page(
             id=context.id,
