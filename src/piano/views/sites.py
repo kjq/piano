@@ -18,7 +18,7 @@ from pyramid.view import view_config
 def view_site(context, request):
     """Main view of the site.
     """
-    add_page_url = request.resource_url(context, 'add-page')
+    add_page_url = request.resource_url(context, 'new-page')
     # Respond
     return mvc.PageModel(
         context,
@@ -26,7 +26,7 @@ def view_site(context, request):
         page_created=context.date_created,
         add_page_url=add_page_url)
 
-@view_config(name='new-site', context=ctx.App, renderer='piano.web.templates.site:edit.mako', request_method='GET')
+@view_config(name='new-site', context=ctx.App, renderer='piano.web.templates.site:new.mako', request_method='GET')
 @view_config(name='new-site', context=ctx.App, request_method='POST')
 def new_site(context, request):
     """Add a new site.

@@ -55,8 +55,9 @@ def edit_page(context, request):
             save_page_url=save_page_url),
         request=request)
 
-@view_config(name='new-page', context=ctx.Site, renderer='piano.web.templates.page:add.mako', request_method='GET')
+@view_config(name='new-page', context=ctx.Site, renderer='piano.web.templates.page:new.mako', request_method='GET')
 @view_config(name='new-page', context=ctx.Site, request_method='POST')
+@view_config(name='new-page', context=ctx.Page, request_method='POST')
 def new_page(context, request):
     """Add a new page.
     """

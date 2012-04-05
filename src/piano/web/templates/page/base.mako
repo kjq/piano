@@ -23,7 +23,7 @@ ${next.body()}
 	Child page name: <input type="text" name="page_title" />
 	<br />
 	Child page template:
-	<select name="source">
+	<select name="page_source">
 		  <%
 		  	  avail_pages = h.available_pages()
 		  %>
