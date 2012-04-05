@@ -34,7 +34,7 @@ def new_site(context, request):
     """
     # Handle submission
     if 'form.submitted' in request.params:
-        title = request.params['title']
+        title = request.params['site_title']
         slug = str(h.urlify(title))
         # Persist
         site = ctx.Site(

@@ -1,10 +1,10 @@
 <%inherit file="piano.web.templates:base.mako" />
 
 <form action="${save_page_url}" method="POST">
-	Child page name: <input type="text" name="title" />
+	Child page name: <input type="text" name="page_title" />
 	<br />
 	Child page template:
-	<select name="source">
+	<select name="page_source">
 		  <%
 		  	  avail_pages = h.available_pages()
 		  %>

@@ -7,7 +7,7 @@
 .. autofunction:: piano.views.pages.create_page
 
 """
-from piano.lib import constants as c
+from piano import constants as c
 from piano.lib import helpers as h
 from piano.lib import mvc
 from piano.resources import contexts as ctx
@@ -42,11 +42,12 @@ def edit_page(context, request):
     save_page_url = request.resource_url(context, 'edit-page')
     # Handle submission
     if 'form.submitted' in request.params:
-        title = request.params['page.title']
-        slug = str(h.urlify(request.params['page.slug']))
+        title = request.params['page_title']
+        slug = str(h.urlify(request.params['page_slug']))
         # Parse the data elements
-        data = dict((k.replace(c.DATA_PREFIX, ''), v)
-                    for k, v in request.POST.items() if k.startswith(c.DATA_PREFIX))
+        page_model = dict((k.replace(c.DATA_PREFIX, ''), v)
+                          for k, v in request.POST.items() 
+                              if k.startswith(c.DATA_PREFIX))
         # Persist Page
         page = ctx.Page(
             id=context.id,
@@ -54,7 +55,7 @@ def edit_page(context, request):
             parent=context,
             title=title,
             slug=slug,
-            data=data).update()
+            data=page_model).update()
         return HTTPFound(location=request.resource_url(context, page.__name__))
     # Respond
     return render_to_response(
@@ -73,9 +74,9 @@ def create_page(context, request):
     """
     # Handle submission
     if 'form.submitted' in request.params:
-        title = request.params['title']
+        title = request.params['page_title']
         slug = str(h.urlify(title))
-        source = request.params['source']
+        source = request.params['page_source']
         # Persist Page (home)
         page = ctx.Page(
             key=slug,

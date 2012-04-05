@@ -27,8 +27,8 @@ VIEW_TEMPLATE = 'view.mako'
 EDIT_TEMPLATE = 'edit.mako'
 
 #: Page values suffix for field(s)
-PAGE_PREFIX = 'page.'
+PAGE_PREFIX = 'page_'
 
 #: Page data values suffix for model field(s)
-DATA_PREFIX = 'data.'
+DATA_PREFIX = 'data_'
 
