@@ -29,7 +29,7 @@ MAIN_TEMPLATE = 'main.mako'
 MODEL_NAME = 'PageModel'
 
 #: PageModel package name default
-MODEL_PATH =  'models'
+MODEL_PATH = 'models'
 
 #: MongoDB URL key
 MONGO_URL = 'mongodb.url'

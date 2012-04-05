@@ -33,7 +33,7 @@ def merge(source):
         site=site_data,
         page=page_data,
         data=page_model)
-    
+
 class PageModel(dict):
     """ PageModel to standardize the dict values used across pages.
     """

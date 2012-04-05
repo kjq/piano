@@ -97,7 +97,7 @@ class Version(b.ContextBase):
             key,
             self.__parent__,
             versioned=True)
-        
+
 class Page(b.ContextBase):
     """The page segment represents an individual page (i.e. home, contact us,
     site map, etc.).  If the page segment extends beyond a single element it 
@@ -107,13 +107,14 @@ class Page(b.ContextBase):
     def __getitem__(self, key):
         try:
             if key == c.V:
-                #Return a versioned instance of the page
+                #Return a versioned instance of the page.  It finds the 
+                #artifact by assigning its 'finder' function to the context.
                 return Version(key=key, parent=self, finder=self.find)
             #Return the head page
             return Page.find(key=key, parent=self)
         except:
             raise KeyError(key)
-    
+
     @classmethod
     def find(cls, key, parent, versioned=False):
         """Finds a page by its parent and slug or version.
@@ -122,13 +123,13 @@ class Page(b.ContextBase):
         def _find_page(k, p, s, a, v):
             coll = parent.get_conn(app=a, site=s)
             if v:
-                return coll['archives'].one({'pageid': parent.id, 
+                return coll['archives'].one({'pageid': parent.id,
                                              'version':int(k)})
             return coll.one({'parent': p, 'slug':k})
         #Find the page
-        doc = _find_page(key, 
-                         parent.__name__, 
-                         parent.sitename, 
+        doc = _find_page(key,
+                         parent.__name__,
+                         parent.sitename,
                          parent.appname,
                          versioned)
         return cls(
@@ -142,7 +143,7 @@ class Page(b.ContextBase):
             views=doc['views'],
             source=str(doc['source']),
             date_created=doc['created'])
-        
+
     def find_history(self):
         """Finds the history for the page.
         """
@@ -160,7 +161,8 @@ class Page(b.ContextBase):
         #Try to import custom models and get doc
         try:
             #Explicitly look for a 'models' module with a 'PageModel' class
-            mod = __import__('.'.join([self.source, c.MODEL_PATH]), fromlist=[self.source])
+            mod = __import__('.'.join([self.source, c.MODEL_PATH]), 
+                             fromlist=[self.source])
             pdoc = getattr(mod, c.MODEL_NAME)
         except ImportError:
             logger.warn("Cannot import '%s.models' module" % self.source)

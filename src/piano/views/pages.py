@@ -43,10 +43,11 @@ def view_page(context, request):
 def view_history(context, request):
     """Renders the history for the page and allows for rollbacks.
     """
+    version_list = context.find_history()
     return dict(page_title="Page History",
                 page_slug=context.__name__,
-                versions = context.find_history())
-    
+                versions=version_list)
+
 @view_config(name='edit-page', context=ctx.Page, request_method='GET')
 @view_config(name='edit-page', context=ctx.Page, request_method='POST')
 def edit_page(context, request):
@@ -64,9 +65,9 @@ def edit_page(context, request):
         template,
         mvc.PageModel(
             context,
-            new_page_url = None,
+            new_page_url=None,
             edit_page_url=edit_page_url,
-            history_page_url = None),
+            history_page_url=None),
         request=request)
 
 @view_config(name='new-page', context=ctx.Site, renderer='piano.web.templates.page:new.mako', request_method='GET')
