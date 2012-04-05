@@ -97,15 +97,6 @@ class Page(b.ContextBase):
         except:
             raise KeyError(key)
 
-    @property
-    def template(self):
-        """Returns the primary view template in the form 
-        [app].[module]:[template].mako.
-        
-        Example: sample.home:main.mako
-        """
-        return ':'.join([self.source, c.MAIN_TEMPLATE])
-
     @classmethod
     def find(cls, key, parent):
         """Finds a single page by its parent and slug.

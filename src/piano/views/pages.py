@@ -14,13 +14,18 @@ from pyramid.httpexceptions import HTTPFound
 from pyramid.renderers import render_to_response
 from pyramid.view import view_config
 
+VIEW_TEMPLATE = 'page_view.mako'
+EDIT_TEMPLATE = 'page_edit.mako'
+PAGE_PREFIX = 'page.'
 DATA_PREFIX = 'data.'
+
+build_template = lambda s,t: ':'.join([s, t])
 
 @view_config(context=ctx.Page, request_method='GET')
 def view_page(context, request):
     """Renders a page using its associated template in either VIEW mode.
     """
-    template = context.template
+    template = build_template(context.source, VIEW_TEMPLATE)
     edit_page_url = request.resource_url(context, 'edit-page')
     save_page_url = request.resource_url(context, 'save-page')
     # Respond
@@ -37,7 +42,7 @@ def view_page(context, request):
 def edit_page(context, request):
     """Renders a page using its associated template in either EDIT mode.
     """
-    template = ':'.join([context.source, 'edit.mako'])
+    template = build_template(context.source, EDIT_TEMPLATE)
     save_page_url = request.resource_url(context, 'edit-page')
     # Handle submission
     if 'form.submitted' in request.params:
