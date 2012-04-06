@@ -1,6 +1,6 @@
 """MongoDB setup and utilities.
 
-:mod:`piano.libs.mongo`
+:mod:`piano.lib.mongo`
 -----------------------
 
 .. autofunction:: setup_db

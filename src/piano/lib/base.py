@@ -1,7 +1,7 @@
-"""Base classes
-
-:mod:`piano.libs.base`
+"""
+:mod:`piano.lib.base`
 ----------------------
+Base classes
 
 .. autoclass:: ContextBase
    :members:

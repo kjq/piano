@@ -1,5 +1,5 @@
 """
-:mod:`piano.lib.dif`
+:mod:`piano.lib.diff`
 -------------------------------
 
 .. autofunction:: diff

@@ -1,5 +1,5 @@
 """
-:mod:`piano.libs.rest`
+:mod:`piano.lib.rest`
 ----------------------
 
 .. autofunction:: invoke

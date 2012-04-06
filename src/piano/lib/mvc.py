@@ -1,5 +1,5 @@
 """
-:mod:`piano.libs.mvc`
+:mod:`piano.lib.mvc`
 ---------------------
 
 .. autofunction:: merge

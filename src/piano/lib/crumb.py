@@ -1,5 +1,5 @@
 """
-:mod:`piano.libs.crumb`
+:mod:`piano.lib.crumb`
 -----------------------
 
 .. autoclass:: Breadcrumb
