@@ -1,4 +1,5 @@
-"""
+"""Pyramid contexts.
+
 :mod:`piano.resources.contexts`
 -------------------------------
 
@@ -25,6 +26,7 @@ from copy import deepcopy
 from beaker.cache import cache_region
 from collections import namedtuple
 from piano import constants as c
+from piano.lib.diff import diff
 from piano.lib import base as b
 from piano.lib import helpers as h
 from piano.resources import interfaces as i
@@ -57,7 +59,6 @@ class Root(b.ContextBase):
             return self.app(key=key, parent=self)
         except:
             raise KeyError(key)
-
 
 class Service(b.ContextBase):
     """The service segment (/services) acts as the entry-point for all services
@@ -97,6 +98,15 @@ class Version(b.ContextBase):
             return self.finder(key, self.__parent__, versioned=True)
         except:
             raise KeyError(key)
+
+    def compare(self, source, target):
+        """Compares two versions and returns the changes.
+        """
+        doc_source = self.finder(source, self.__parent__, versioned=True)
+        doc_target = self.finder(target, self.__parent__, versioned=True)
+        return diff(
+            doc_source.data,
+            doc_target.data)
 
 class Page(b.ContextBase):
     """The page segment represents an individual page (i.e. home, contact us,

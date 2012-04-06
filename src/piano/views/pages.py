@@ -8,8 +8,6 @@
 
 .. autofunction:: piano.views.pages.view_page
 
-.. autofunction:: piano.views.pages.view_history
-
 """
 from piano import constants as c
 from piano.lib import mvc
@@ -38,15 +36,6 @@ def view_page(context, request):
             edit_page_url=edit_page_url,
             history_page_url=history_page_url),
         request=request)
-
-@view_config(name='history', context=ctx.Page, renderer='piano.web.templates.page:history.mako', request_method='GET')
-def view_history(context, request):
-    """Renders the history for the page and allows for rollbacks.
-    """
-    version_list = context.find_history()
-    return dict(page_title="Page History",
-                page_slug=context.__name__,
-                versions=version_list)
 
 @view_config(name='edit-page', context=ctx.Page, request_method='GET')
 @view_config(name='edit-page', context=ctx.Page, request_method='POST')

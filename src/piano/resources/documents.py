@@ -1,4 +1,5 @@
-"""
+"""MongoDB documents.
+
 :mod:`piano.resources.documents`
 --------------------------------
 

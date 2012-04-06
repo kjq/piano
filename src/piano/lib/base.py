@@ -1,4 +1,5 @@
-"""
+"""Base classes
+
 :mod:`piano.libs.base`
 ----------------------
 
@@ -8,6 +9,7 @@
 .. autoclass:: DocumentBase
 
 """
+from piano import constants as c
 from piano.resources import interfaces as i
 from mongokit import Document
 from pyramid.traversal import find_interface, find_root
@@ -43,17 +45,17 @@ class ContextBase(dict):
         """Returns the name of the site.  
         """
         return self.__site__.__name__
-    
+
     def history_data(self):
         """Returns the history collection.
         """
-        return self.get_conn()['history']
-    
+        return self.get_conn()[c.HISTORY_COLL]
+
     def pages_data(self):
         """Returns the pages collection.
         """
-        return self.get_conn()['pages']
-    
+        return self.get_conn()[c.PAGES_COLL]
+
     def get_conn(self, app=None, site=None):
         """Returns a raw MongoDB connection.  If none of the arguments are
         set it will try to configure the connection based on the instances 

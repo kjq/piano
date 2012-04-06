@@ -1,4 +1,5 @@
-"""
+"""MongoDB setup and utilities.
+
 :mod:`piano.libs.mongo`
 -----------------------
 
