@@ -16,7 +16,7 @@ def dashboard(context, request):
     page_title = "Dashboard"
     new_site_url = request.resource_url(context, 'new-site')
     # Find list of sites
-    site_list = context.find_sites()
+    site_list = context.get_sites()
     # Respond
     return dict(
         app_title=page_title,

@@ -35,7 +35,7 @@ def new_site(context, request):
     if 'form.submitted' in request.params:
         data = mvc.merge(request.POST.items())
         site = ctx.Site(parent=context)
-        site.create(data, include_default=True)
+        site.save(data, include_default=True)
         return HTTPFound(location=request.resource_url(context, site.__name__))
     new_site_url = request.resource_url(context, 'new-site')
     # Respond

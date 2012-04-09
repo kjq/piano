@@ -43,7 +43,7 @@ MONGO_URL = 'mongodb.url'
 MONGO_CONN = 'mongodb.conn'
 
 #: Mongo Page collection
-PAGE_COLL = 'pages'
+PAGES_COLL = 'pages'
 
 #: Page values suffix for field(s)
 PAGE_PREFIX = 'page_'

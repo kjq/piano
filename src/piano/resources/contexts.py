@@ -37,6 +37,7 @@ import logging
 logger = logging.getLogger(__name__)
 
 SiteItem = namedtuple('Site', ['title', 'slug'], verbose=False)
+VersionedItem = namedtuple('Version', ['title', 'slug'], verbose=False)
 
 class Root(b.ContextBase):
     """The root segment is the entry-point into the context tree.  From the
@@ -79,7 +80,7 @@ class App(b.ContextBase):
         except:
             raise KeyError(key)
 
-    def find_sites(self):
+    def get_sites(self):
         """Returns a list of sites under the application.
         """
         #@cache_region('hourly', 'site.list')
@@ -107,6 +108,9 @@ class Version(b.ContextBase):
         return diff(
             doc_source.data,
             doc_target.data)
+
+    def rollback(self, source, target):
+        pass
 
 class Page(b.ContextBase):
     """The page segment represents an individual page (i.e. home, contact us,
@@ -152,7 +156,7 @@ class Page(b.ContextBase):
             source=str(doc['source']),
             date_created=doc['created'])
 
-    def find_history(self):
+    def get_history(self):
         """Finds the history for the page.
         """
         docs = self.history_data().find({'pageid': self.id})
@@ -228,7 +232,7 @@ class Site(Page):
             views=doc['views'],
             date_created=doc['created'])
 
-    def create(self, data, include_default=False):
+    def save(self, data, include_default=False):
         """Saves the primary site details and creates a new collection to house 
         the pages in.  It also creates a default (Home) page if needed.
         """

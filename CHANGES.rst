@@ -30,4 +30,7 @@ Changelog
 0.4
 ---
 - Added versioning to page data
+- Can view snapshots of archived pages with data
+- Added diff for dicts
 - Allow for editing page data
+- Simplified 'pages' and 'history' collection usage

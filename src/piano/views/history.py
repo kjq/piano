@@ -14,7 +14,7 @@ from pyramid.view import view_config
 def view_history(context, request):
     """Renders the history for the page and allows for rollbacks.
     """
-    version_list = context.find_history()
+    version_list = context.get_history()
     return dict(page_title="Page History",
                 page_slug=context.__name__,
                 versions=version_list)

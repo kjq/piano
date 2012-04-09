@@ -21,7 +21,7 @@ class ContextBase(dict):
     __parent__ = None
     __app__ = None
     __site__ = None
-
+    
     def __init__(self, key=None, parent=None, **kwargs):
         self.__name__ = key
         self.__parent__ = parent
