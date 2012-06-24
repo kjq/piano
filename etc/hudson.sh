@@ -6,7 +6,7 @@ WORKSPACE=$1
 
 # Deployment Environment
 #--------------------
-PROJECT_NAME=logd
+PROJECT_NAME=piano
 SOURCE=/opt/data/hudson/$WORKSPACE/workspace
 TARGET=/opt/wsgi/$WORKSPACE
 EXECUTE=/opt/bin/exec-as-root
